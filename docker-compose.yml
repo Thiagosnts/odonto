@@ -1,0 +1,15 @@
+version: '2'
+services:
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
+  # web:
+  #   # build: .
+  #   image: lex720/django
+  #   volumes:
+  #     - .:/code
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     - db

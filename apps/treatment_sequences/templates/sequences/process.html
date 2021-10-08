@@ -1,0 +1,195 @@
+{% extends '_base.html' %}
+
+<!-- Static files django label -->
+{% load static %}
+
+<!-- this page specific styles -->
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/compiled/user-profile.css' %}" type="text/css" media="screen"
+          xmlns="http://www.w3.org/1999/html"/>
+    <link rel="stylesheet" href="{% static 'css/compiled/ui-elements.css' %}" type="text/css" media="screen" />
+<style>#concluir{
+    width: 115px;
+    height: 47px;
+    padding: 4px 0px 4px 0px;
+    text-align: center;
+    border-radius: 4px;
+  border-color: #2480c2;
+  color: #fff;
+  text-shadow: rgba(0, 0, 0, 0.35) 0 1px 0;
+  box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.5);
+  /* background: #54b3ff; */
+  background: -moz-linear-gradient(top, #54b3ff 0%, #0078d9 100%);
+  /* background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #54b3ff), color-stop(100%, #0078d9)); */
+  background: -webkit-linear-gradient(top, #54b3ff 0%, #0078d9 100%);
+  background: linear-gradient(#54b3ff, #0078d9);
+  background: -o-linear-gradient(top, #54b3ff 0%, #0078d9 100%);
+  background: -ms-linear-gradient(top, #54b3ff 0%, #0078d9 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#54b3ff', endColorstr='#0078d9',GradientType=0 );
+}
+</style>
+    {% endblock %}
+
+{% block title %} Editar Prontuário {% endblock %}
+
+{% block active-sequences %} class="active" {% endblock %}
+
+{% block content %}
+    <div id="pad-wrapper" class="user-profile">
+        <!-- header -->
+        <div class="row header" style="margin-bottom: 20px;">
+            <div class="col-md-8">
+                <h4 class="name">Codigo da Consulta: {{ sequence.code }}</h4>
+                <span class="area">Selecione o diagnostico e procedimento para o paciente</span>
+            </div>
+            {% if sequence.status == 2 and sequence.total > 0 %}
+                <a id="concluir" href="{% url 'close_sequence' sequence.code %}" class="btn-flat.success icon large pull-right edit">
+                    Concluir Procedimento
+                </a>
+            {% endif %}
+        </div>
+
+        <div class="row" style="margin-top: 50px;">
+            <form class="form-horizontal" role="form" action="{% url 'process_sequence' sequence.code %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="patient_dni" id="patient_dni" value="{{ sequence.patient }}">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="diagnostic_code" class="col-md-5 control-label">Diagnóstico do Paciente </label>
+                            <div class="col-md-7">
+                                <div class="ui-select" style="width: 100%;">
+                                    <select id="diagnostic_code" name="diagnostic_code" required>
+                                        <option value="">Selecionar</option>
+                                        {% for diagnostic in patient_diagnostics %}
+                                            {% if diagnostic.status == 0 %}
+                                                <option value="{{ diagnostic.code }}">{{ diagnostic.diagnostic }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="treatment_code" class="col-md-4 control-label">Procedimentos Clinicos</label>
+                            <div class="col-md-8">
+                                <div class="ui-select" style="width: 100%;">
+                                    <select id="treatment_code" name="treatment_code" required>
+                                        <option value="">Selecionar</option>
+                                        {% for treatment in clinic_treatments %}
+                                            <option value="{{ treatment.code }}">{{ treatment.name }} - ${{ treatment.price }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="treatment_quantity" class="col-md-1 control-label">-</label>
+                            <div class="col-md-10">
+                                <div class="ui-select" style="width: 100%;">
+                                    <select id="treatment_quantity" name="treatment_quantity" required>
+                                        <option value="">Quantidade</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" class="btn-glow primary">Adicionar</button>
+                                <span> &nbsp; Ou</span>
+                                <input type="reset" value="Limpar" class="btn-glow">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row profile" style="margin-top: 50px; padding: 0 20px;">
+            <div class="">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="col-md-1">
+                                Ação
+                            </th>
+                            <th class="col-md-3">
+                                <span class="line"></span>
+                                Data
+                            </th>
+                            <th class="col-md-3">
+                                <span class="line"></span>
+                                Codigo do Tratamento
+                            </th>
+                            <th class="col-md-4">
+                                <span class="line"></span>
+                                Tratamento
+                            </th>
+                             <th class="col-md-1">
+                                <span class="line"></span>
+                                Quantidade
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if sequence_treatments != None %}
+                            {% for treatment in sequence_treatments %}
+                                <!-- results row -->
+                                <tr class="first">
+                                    <td>
+                                        <form class="form-horizontal" role="form" action="{% url 'delete_sequence_treatment' sequence.code treatment.diagnostic_code %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="subtotal" id="subtotal" value="{{ treatment.subtotal }}">
+                                            <input type="hidden" name="patient_dni" id="patient_dni" value="{{ sequence.patient }}">
+                                            <button type="submit" class="btn-flat icon pull-left delete-user" data-toggle="tooltip" title="Delete" data-placement="top">
+                                                <i class="icon-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        {{ treatment.date }}
+                                    </td>
+                                    <td>
+                                        {{ treatment.diagnostic_code }}
+                                    </td>
+                                    <td>
+                                        {{ treatment.treatment_name }}
+                                    </td>
+                                    <td>
+                                        x{{ treatment.treatment_quantity }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr class="first">
+                                <td colspan="4">Não há Registro</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 40px;">
+            <div class="col-md-6">
+                <a href="{% url 'sequences' %}" class="btn-flat success pull-left">Voltar</a>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

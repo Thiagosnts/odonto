@@ -1,0 +1,101 @@
+{% extends '_base.html' %}
+
+<!-- Static files django label -->
+{% load static %}
+
+<!-- this page specific styles -->
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/compiled/new-user.css' %}" type="text/css" media="screen" />
+{% endblock %}
+
+{% block title %} Criar Usuário {% endblock %}
+
+{% block active-users %} class="active" {% endblock %}
+
+{% block content %}
+    <div id="pad-wrapper" class="new-user">
+
+       
+
+
+
+
+
+        <div class="row header">
+            <div class="col-md-offset-4 col-md-4">
+                <h3 class="text-center">Criar novo Usuário</h3>
+            </div>
+        </div>
+        <div class="row form-wrapper">
+            <div class="col-md-offset-2 col-md-8">
+                <form class="form-horizontal" role="form" action="{% url 'create_user' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name" class="col-md-2 control-label">Nome</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Nome" value="{{ name }}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-md-2 control-label">Email</label>
+                        <div class="col-md-8">
+                          <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{ email }}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="col-md-2 control-label">Telefone</label>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" name="phone" id="phone" placeholder="Telefone" value="{{ phone }}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="role" class="col-md-2 control-label">Tipo</label>
+                        <div class="col-md-8">
+                            <div class="ui-select" style="width: 100%;">
+                                <select id="role" name="role" required>
+                                    <option value="">Selecionar</option>
+                                    <option value="admin" {% if role == "admin" %} {{ "selected" }} {% endif %}>Administrador</option>
+                                    <option value="office" {% if role == "office" %} {{ "selected" }} {% endif %}>Consultório</option>
+                                    <option value="doctor" {% if role == "doctor" %} {{ "selected" }} {% endif %}>Doutor</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="file" class="col-md-2 control-label">Upload de foto</label>
+                        <div class="col-md-8">
+                          <input name="file" type="file" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="username" class="col-md-2 control-label">Nome do Usuário</label>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" name="username" id="username" pattern="[A-Za-z0-9]+" title="Usuário deve ter somente letras e números." placeholder="Nome do Usuário" value="{{ username }}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-md-2 control-label">Senha</label>
+                        <div class="col-md-8">
+                          <input type="password" class="form-control" name="password" id="password" placeholder="Senha" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password2" class="col-md-2 control-label">Repetir Senha</label>
+                        <div class="col-md-8">
+                          <input type="password" class="form-control" name="password2" id="password2" placeholder="Repetir Senha" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-8">
+                            <button type="submit" class="btn-glow primary">Criar</button>
+                            <span> &nbsp; Ou</span>
+                            <input type="reset" value="Limpar" class="reset">
+                            <a href="{% url 'users' %}" class="btn-flat success pull-right">Voltar</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

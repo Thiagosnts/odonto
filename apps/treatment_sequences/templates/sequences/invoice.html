@@ -1,0 +1,119 @@
+{% extends '_base.html' %}
+
+<!-- Static files django label -->
+{% load static %}
+
+<!-- this page specific styles -->
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/compiled/user-profile.css' %}" type="text/css" media="screen"
+          xmlns="http://www.w3.org/1999/html"/>
+    <link rel="stylesheet" href="{% static 'css/compiled/ui-elements.css' %}" type="text/css" media="screen" />
+{% endblock %}
+
+{% block title %} Editar Consulta {% endblock %}
+
+{% block active-sequences %} class="active" {% endblock %}
+
+{% block content %}
+    <div id="pad-wrapper" class="user-profile">
+        <!-- header -->
+        <div class="row header" style="margin-bottom: 20px;">
+            <div class="col-md-8">
+                <h4 class="name">Código do prontuário: {{ sequence.code }}</h4>
+                <span class="area"> salvar ou enviar o dados de pagamento por e-mail</span>
+            </div>
+        </div>
+
+        <div class="row profile" style="margin-top: 50px; padding: 0 20px;">
+            <div class="">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="col-md-2">
+                                <span class="line"></span>
+                                Data
+                            </th>
+                            <th class="col-md-2">
+                                <span class="line"></span>
+                                Codigo do Prontuário
+                            </th>
+                            <th class="col-md-4">
+                                <span class="line"></span>
+                                Descrição do Prontuário
+                            </th>
+                            <th class="col-md-2">
+                                <span class="line"></span>
+                                Valor do Tratamento
+                            </th>
+                             <th class="col-md-1">
+                                <span class="line"></span>
+                                Quantidade
+                            </th>
+                            <th class="col-md-1">
+                                <span class="line"></span>
+                                Subtotal
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if sequence_treatments != None %}
+                            {% for treatment in sequence_treatments %}
+                                <!-- results row -->
+                                <tr class="first">
+                                    <td>
+                                        {{ treatment.date }}
+                                    </td>
+                                    <td>
+                                        {{ treatment.diagnostic_code }}
+                                    </td>
+                                    <td>
+                                        {{ treatment.treatment_name }}
+                                    </td>
+                                    <td>
+                                        R${{ treatment.treatment_price }}
+                                    </td>
+                                    <td>
+                                        x{{ treatment.treatment_quantity }}
+                                    </td>
+                                    <td>
+                                       R${{ treatment.subtotal }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr class="first">
+                                <td colspan="4">Não há Resgistro</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 40px;">
+            <div class="col-md-12" style="padding-right: 20px;">
+                <p class="pull-right"><b>TOTAL: &nbsp; R${{ sequence.total|default:0.0 }}</b></p>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 40px;">
+            <div class="col-md-12">
+                <form class="form-horizontal" role="form" action="{% url 'invoice_sequence' sequence.code %}" method="post">
+                    <p class="text-center">
+                        <a href="#" onclick="window.print();" class="btn-glow primary">Imprimir Dados de Pagamento</a>
+                        <span> &nbsp; Ou &nbsp; </span>
+                        {% csrf_token %}
+                        <button type="submit" class="btn-glow primary">Email do Paciente</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 40px;">
+            <div class="col-md-12">
+                <a href="{% url 'sequences' %}" class="btn-flat success pull-left">Voltar</a>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

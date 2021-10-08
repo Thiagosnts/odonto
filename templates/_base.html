@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Lead Odonto | {% block title %} {% endblock %}</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
+    <style>
+        @media (min-width: 768px) {
+            .navbar-nav {
+                float: right !important;
+                margin: 0;
+            }
+        }
+
+        .navbar {
+            margin-bottom: 0px !important;
+            padding: 0px 10px !important;
+        }
+
+        @media (min-width: 992px) {
+
+            .navbar-expand-lg>.container,
+            .navbar-expand-lg>.container-fluid {
+                -ms-flex-wrap: nowrap;
+                flex-wrap: nowrap;
+                display: grid;
+                grid-template-columns: 33% 33% 33%;
+            }
+        }
+        .alert{box-shadow: 1px 2px 7px rgb(0 0 0 / 12%);}
+    </style>
+
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+        crossorigin="anonymous"></script>
+
+    {% load static %}
+
+
+    <link href="{% static 'css/bootstrap/bootstrap.css' %}" rel="stylesheet" />
+    <!--<link href="{% static 'css/bootstrap/bootstrap-overrides.css' %}" type="text/css" rel="stylesheet" />-->
+
+
+    <link href="{% static 'css/lib/jquery-ui-1.10.2.custom.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/lib/font-awesome.css' %}" type="text/css" rel="stylesheet" />
+    <!-- <link href="{% static 'css/lib/bootstrap.datepicker.css' %}" type="text/css" rel="stylesheet" />-->
+
+    <!-- global styles 
+    <link rel="stylesheet" type="text/css" href="{% static 'css/compiled/layout.css' %}" />-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/compiled/elements.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/compiled/style.css' %}" />
+
+
+    {% block style %} {% endblock %}
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Lead Odonto+</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <!-- <p>Dummy Heading</p> -->
+                <li {% block active-dashboard %}{% endblock %}>
+                    <a href="{% url 'dashboard' %}">
+                        <i class="icon-bar-chart"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                {% if auth_user.role == 'admin' %}
+                <li {% block active-users %}{% endblock %}>
+                    <a href="{% url 'users' %}">
+                        <i class="icon-user-md"></i>
+                        <span>Usuários</span>
+                    </a>
+                </li>
+                <li {% block active-treatments %}{% endblock %}>
+                    <a href="{% url 'treatments' %}">
+                        <i class="icon-plus"></i>
+                        <span>Tratamentos</span>
+                    </a>
+                </li>
+                {% endif %}
+                <li {% block active-patients %}{% endblock %}>
+                    <a href="{% url 'patients' %}">
+                        <i class="icon-group"></i>
+                        <span>Pacientes</span>
+                    </a>
+                </li>
+                <li {% block active-sequences %}{% endblock %}>
+                    <a href="{% url 'sequences' %}">
+                        <i class="icon-sitemap"></i>
+                        <span>Consulta</span>
+                    </a>
+                </li>
+
+                <li {% block active-reports %}{% endblock %}>
+                    <a onclick="ativar()" class="dropdown-toggle" href="#">
+                        <i class="icon-tasks"></i>
+                        <span>Relatórios</span>
+                        <i class="icon-chevron-down"></i>
+                    </a>
+                    <ul class="submenu" style="display: none;">
+                        {% if auth_user.role == 'admin' or auth_user.role == 'office' %}
+                        <li style="list-style-type: none"><a href="{% url 'reports_total' %}">Total Faturamento</a></li>
+                        {% endif %}
+                        {% if auth_user.role == 'doctor' %}
+                        <li style="list-style-type: none"><a href="{% url 'reports_payment' %}">Pagamentos</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
+
+            </ul>
+
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <!-- <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <span>Toggle Sidebar</span>
+                    </button> -->
+
+                    <span><a>Usuário:<b>{{ auth_user.username|title }}</b> - Papel: <b>{{ auth_user.role|title}}</b></a></span>
+
+
+                    <div>
+                        {% for message in messages %}
+                        {% if 'success' in message.tags %}
+                        <div class="  alert alert-success text-center">
+                            <i class="icon-ok-sign"></i>
+                            {{ message }}
+                        </div>
+                        {% elif 'error' in message.tags%}
+                        <div class="  alert alert-warning text-center">
+                            <i class="icon-warning-sign"></i>
+                            {{ message }}
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="settings hidden-xs hidden-sm">
+                                <a href="{% url 'logout' %}" role="button">
+                                    Sair
+                                    <i class="icon-share-alt"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- <h2>Collapsible Sidebar Using Bootstrap 4</h2> -->
+
+            {% block content %}{% endblock %}
+
+        </div>
+    </div>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+
+        function ativar() {
+            obj = document.getElementsByClassName("submenu")[0]
+
+            if (obj.style.display == "block")
+                obj.style.display = "none"
+            else {
+                obj.style.display = "block"
+            }
+        }
+    </script>
+</body>
+
+</html>

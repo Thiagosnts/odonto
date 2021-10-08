@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="be89af77-6d17-4302-bf8c-71ef86c156a8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/auth/templates/auth/_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth/templates/auth/_base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/auth/templates/auth/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth/templates/auth/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/patients/templates/patients/check.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/patients/templates/patients/check.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/patients/templates/patients/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/patients/templates/patients/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/patients/templates/patients/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/patients/templates/patients/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/patients/templates/patients/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/patients/templates/patients/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/reports/templates/reports/payment.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/reports/templates/reports/payment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/treatment_sequences/templates/sequences/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/treatment_sequences/templates/sequences/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/treatment_sequences/templates/sequences/invoice.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/treatment_sequences/templates/sequences/invoice.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/treatment_sequences/templates/sequences/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/treatment_sequences/templates/sequences/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/treatment_sequences/templates/sequences/process.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/treatment_sequences/templates/sequences/process.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/treatments/templates/treatments/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/treatments/templates/treatments/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/treatments/templates/treatments/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/treatments/templates/treatments/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/treatments/templates/treatments/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/treatments/templates/treatments/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/treatments/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/treatments/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/users/templates/users/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/templates/users/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/users/templates/users/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/templates/users/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/users/templates/users/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/templates/users/list.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="1sYEsUd9yzPkbEIKwpObEPnf2xe" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="be89af77-6d17-4302-bf8c-71ef86c156a8" name="Default Changelist" comment="" />
+      <created>1621041330038</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1621041330038</updated>
+    </task>
+    <servers />
+  </component>
+</project>
