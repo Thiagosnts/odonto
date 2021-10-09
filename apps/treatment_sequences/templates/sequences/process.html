@@ -42,7 +42,7 @@
                 <h4 class="name">Codigo da Consulta: {{ sequence.code }}</h4>
                 <span class="area">Selecione o diagnostico e procedimento para o paciente</span>
             </div>
-            {% if sequence.status == 2 and sequence.total > 0 %}
+            {% if sequence.status == 2 %}
                 <a id="concluir" href="{% url 'close_sequence' sequence.code %}" class="btn-flat.success icon large pull-right edit">
                     Concluir Procedimento
                 </a>
