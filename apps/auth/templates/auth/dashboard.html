@@ -76,86 +76,100 @@
 
 
 
-    <style>
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-            font-size: 14px;
-        }
+            <style>
+                html,
+                body {
+                    margin: 0;
+                    padding: 0;
+                    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+                    font-size: 14px;
+                }
 
-        #calendar {
-            max-width: 1100px;
-            margin: 40px auto;
-        }
+                #calendar {
+                    max-width: 1100px;
+                    margin: 40px auto;
+                }
 
-        .fc-daygrid-event-dot {
-                        display: none;}
- 
-
-                        .fc-daygrid-event.fc-daygrid-dot-event.fc-event.fc-event-start.fc-event-end.fc-event-past {
-                        display: grid;
-                        display: grid;
-                        background-color: aqua;
-                        padding: 1px 10px 1px 10px;
-                        margin-bottom: 7px;
-                        box-shadow: 2px 2px 4px rgb(0 0 0 / 40%);
-                    }
-
-                    .fc-event-title {
-                        font-size: 12px;
-                    }
-    </style>
+                .fc-daygrid-event-dot {
+                    display: none;
+                }
 
 
+                .fc-daygrid-event.fc-event-today {
+                    display: grid;
+                    display: grid;
+                    background-color: aqua;
+                    padding: 1px 10px 1px 10px;
+                    margin-bottom: 7px;
+                    box-shadow: 2px 2px 4px rgb(0 0 0 / 40%);
+                }
 
-    <script>
+                .fc-event-title {
+                    font-size: 10px;
+                }
+            </style>
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
 
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                timeZone: 'Brazil/Sao_paulo',
-                locale: 'pt-br',
-                initialView: 'dayGridMonth',
-                initialDate: '2021-10-09',
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                },
-                events: [
+
+            <script>
+                dadosEvento = [
                     {
                         groupId: '1',
-                        title: 'SAMUEL',
-                        start: '2021-10-09T21:00:00',
-                        end: '2021-10-09T22:00:00',
+                        title: 'SAMUEL LUIZ',
+                        url: 'google.com',
+                        start: '2021-10-10T21:00:00',
+                        end: '2021-10-10T22:00:00',
                     },
                     {
-                        title: 'MARCOS',
-                        start: '2021-10-07T22:00:00',
-                        end: '2021-10-07T23:00:00'
+                        title: 'MARCOS FREITAS',
+                        url: 'google.com',
+                        start: '2021-10-10T22:00:00',
+                        end: '2021-10-10T23:00:00'
                     },
                     {
-                        title: 'THIAGO',
+                        title: 'THIAGO DOS SANTOS',
                         url: 'http://google.com/',
-                        start: '2021-10-08T16:00:00',
+                        start: '2021-10-10T16:00:00',
+                        end: '2021-10-10T23:00:00'
                     }
-                ],
-                eventTimeFormat: { hour: '2-digit', minute: '2-digit', meridiem: true }
+                ]
 
-            });
+                var data = new Date();
+                var dia = String(data.getDate()).padStart(2, '0');
+                var mes = String(data.getMonth() + 1).padStart(2, '0');
+                var ano = data.getFullYear();
+                dataAtual = ano + "-" + dia + "-" + mes;
 
-            calendar.render();
 
-        });
 
-    </script>
 
-</head>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var calendarEl = document.getElementById('calendar');
 
-    <div id='calendar'></div>
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        timeZone: 'Brazil/Sao_paulo',
+                        locale: 'pt-br',
+                        initialView: 'dayGridMonth',
+                        initialDate: dataAtual,
+                        headerToolbar: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                        },
+                        events: dadosEvento,
+                        eventTimeFormat: { hour: '2-digit', minute: '2-digit', meridiem: true }
+
+                    });
+
+                    calendar.render();
+
+                });
+
+            </script>
+
+            </head>
+
+            <div id='calendar'></div>
 
         </div>
     </div>
