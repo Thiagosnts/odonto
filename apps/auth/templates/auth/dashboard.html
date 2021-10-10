@@ -89,6 +89,23 @@
             max-width: 1100px;
             margin: 40px auto;
         }
+
+        .fc-daygrid-event-dot {
+                        display: none;}
+ 
+
+                        .fc-daygrid-event.fc-daygrid-dot-event.fc-event.fc-event-start.fc-event-end.fc-event-past {
+                        display: grid;
+                        display: grid;
+                        background-color: aqua;
+                        padding: 1px 10px 1px 10px;
+                        margin-bottom: 7px;
+                        box-shadow: 2px 2px 4px rgb(0 0 0 / 40%);
+                    }
+
+                    .fc-event-title {
+                        font-size: 12px;
+                    }
     </style>
 
 
@@ -110,22 +127,24 @@
                 },
                 events: [
                     {
-                        groupId: '999',
-                        title: 'Consulta 7:00',
+                        groupId: '1',
+                        title: 'SAMUEL',
                         start: '2021-10-09T21:00:00',
-
+                        end: '2021-10-09T22:00:00',
                     },
                     {
-                        title: 'Consulta 8:00',
-                        start: '2021-10-07',
-                        end: '2021-10-07'
+                        title: 'MARCOS',
+                        start: '2021-10-07T22:00:00',
+                        end: '2021-10-07T23:00:00'
                     },
                     {
-                        title: 'Consulta 9:00',
+                        title: 'THIAGO',
                         url: 'http://google.com/',
                         start: '2021-10-08T16:00:00',
                     }
-                ]
+                ],
+                eventTimeFormat: { hour: '2-digit', minute: '2-digit', meridiem: true }
+
             });
 
             calendar.render();
