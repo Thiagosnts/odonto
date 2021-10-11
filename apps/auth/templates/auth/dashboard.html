@@ -100,6 +100,8 @@
                     return (data.getFullYear() + "-" + mes + "-" + dia + "T" + hora + ":" + minutos + ":00");
                 }
 
+
+
             </script>
 
             <script>
@@ -173,6 +175,23 @@
                         }
                     });
                 });
+
+
+                //Corrigindo bug ao alternar meses
+                onload = function () { 
+                    var botao1 = document.getElementsByClassName('fc-prev-button btn btn-primary')[0]
+                    var botao2 = document.getElementsByClassName('fc-next-button btn btn-primary')[0]
+                    botao1.addEventListener('click', checarBotao, false);
+                    botao2.addEventListener('click', checarBotao, false);
+                }
+
+                function checarBotao() {
+                    var botao1 = document.getElementsByClassName('fc-prev-button btn btn-primary')[0]
+                    var botao2 = document.getElementsByClassName('fc-next-button btn btn-primary')[0]
+                    botao1.removeChild(botao1.firstChild)
+                    botao2.removeChild(botao2.firstChild)
+                }
+                //Corrigindo bug ao alternar meses
 
             </script>
             <style>
