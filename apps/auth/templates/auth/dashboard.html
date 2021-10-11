@@ -10,6 +10,8 @@
 <script src="{% static 'js/theme-chooser.js' %}"></script>
 <script src="{% static 'lib/locales/pt-br.js' %}"></script>
 <link rel="stylesheet" href="{% static 'css/compiled/index.css' %}" type="text/css" media="screen" />
+<meta charset="UTF-8">
+
 <link
     href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
     rel='stylesheet' type='text/css' />
@@ -42,7 +44,7 @@
         </div>
         <div class="col-md-3 col-sm-3 stat">
             <div class="data">
-                <span class="number">{{ sequences|length }}</span>
+                <span class="number">{{ sequences_done|length }}</span>
                 Tratamentos
             </div>
             <span class="date">Finalizados</span>
@@ -68,7 +70,7 @@
         </div> -->
         <div class="col-md-12">
 
-
+            <span hidden id="dados">{{sequences}}</span>
             <!DOCTYPE html>
             <html>
 
@@ -77,6 +79,13 @@
 
 
                 <script>
+                    var dados=document.getElementById('dados').innerHTML
+                    dados=dados.replaceAll("ObjectId(","")
+                    dados=dados.replaceAll("'","\"")
+                    dados=dados.replaceAll(")","")
+                    dados=dados.replaceAll("_id","id")
+                    var dados=JSON.parse(dados)
+
                     dadosEvento = [
                         { id: '1', resourceId: 'a', start: '2020-09-07T02:30:00', end: '2020-09-07T03:00:00', title: 'THIAGO DOS SANTOS', tip: 'Personal tip 2' },
                         { id: '2', resourceId: 'b', start: '2020-09-07T03:30:00', end: '2020-09-07T04:00:00', title: 'MARCOS FREITAS', url: 'https://google.com', tip: 'Personal tip 2' },
@@ -265,3 +274,4 @@
 <script src="{% static 'js/theme.js' %}"></script>
 
 {% endblock %}
+
