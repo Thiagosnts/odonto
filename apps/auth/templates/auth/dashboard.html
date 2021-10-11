@@ -70,7 +70,7 @@
         </div> -->
         <div class="col-md-12">
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            <button hidden type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                 Launch demo modal
             </button>
 
@@ -199,7 +199,7 @@
                                     mensagem = "<b>Doutor</b> :</b> " + detalhes.doctor + "<br>"
                                     mensagem = mensagem + "<b>Paciente</b> : " + detalhes.patient_name + "<br>"
                                     mensagem = mensagem + "<b>Data</b> : " + detalhes.date + "<br>"
-                                    mensagem = mensagem + "<b>Hora</b> : " + detalhes.shift+ "<br>"
+                                    mensagem = mensagem + "<b>Hora</b> : " + detalhes.shift + "<br>"
                                     mensagem = mensagem + "<span class='label label-info'>Aberto</span>"
 
                                     if (document.getElementsByClassName('btn btn-primary consulta')[0])
@@ -207,7 +207,6 @@
 
                                     document.getElementById('mensagem-modal').innerHTML = mensagem
                                     document.getElementsByClassName('btn btn-primary')[0].click()
-
                                     info.el.style.borderColor = 'red';
                                 }
 
@@ -224,12 +223,10 @@
 
                 //Corrigindo bug ao alternar meses
                 onload = function () {
-                    var botao1 = document.getElementsByClassName('fc-prev-button btn btn-primary')[0]
-                    var botao2 = document.getElementsByClassName('fc-next-button btn btn-primary')[0]
-                    var botao3 = document.getElementsByClassName('fc-today-button btn btn-primary')[0]
-                    botao1.addEventListener('click', checarBotao, false);
-                    botao2.addEventListener('click', checarBotao, false);
-                    botao3.addEventListener('click', checarBotao, false);
+                    var botoes = document.getElementsByClassName('btn btn-primary')
+                    for (var i = 0; i < botoes.length; i++)
+                        botoes[i].addEventListener('click', checarBotao, false);
+
 
                 }
 
@@ -237,9 +234,10 @@
                 function checarBotao() {
                     var botao1 = document.getElementsByClassName('fc-prev-button btn btn-primary')[0]
                     var botao2 = document.getElementsByClassName('fc-next-button btn btn-primary')[0]
-                    var botao3 = document.getElementsByClassName('fc-today-button btn btn-primary')[0]
-                    botao1.removeChild(botao1.firstChild)
-                    botao2.removeChild(botao2.firstChild)
+                    if (botao1.childElementCount == 2) {
+                        botao1.removeChild(botao1.firstChild)
+                        botao2.removeChild(botao2.firstChild)
+                    }
                 }
                 //Corrigindo bug ao alternar meses
 
