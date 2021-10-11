@@ -181,13 +181,17 @@
                 onload = function () { 
                     var botao1 = document.getElementsByClassName('fc-prev-button btn btn-primary')[0]
                     var botao2 = document.getElementsByClassName('fc-next-button btn btn-primary')[0]
+                    var botao3 = document.getElementsByClassName('fc-today-button btn btn-primary')[0]
                     botao1.addEventListener('click', checarBotao, false);
                     botao2.addEventListener('click', checarBotao, false);
+                    botao3.addEventListener('click', checarBotao, false);
+
                 }
 
                 function checarBotao() {
                     var botao1 = document.getElementsByClassName('fc-prev-button btn btn-primary')[0]
                     var botao2 = document.getElementsByClassName('fc-next-button btn btn-primary')[0]
+                    var botao3 = document.getElementsByClassName('fc-today-button btn btn-primary')[0]
                     botao1.removeChild(botao1.firstChild)
                     botao2.removeChild(botao2.firstChild)
                 }
