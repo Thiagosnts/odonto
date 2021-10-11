@@ -71,6 +71,9 @@
         <div class="col-md-12">
 
             <span hidden id="dados">{{sequences}}</span>
+            <span hidden id="tipo_usuario">{{auth_user}}</span>
+
+
             <!DOCTYPE html>
             <html>
 
@@ -105,9 +108,9 @@
             </script>
 
             <script>
-
-
+                var tipoUsuario = JSON.parse(document.getElementById("tipo_usuario").innerHTML.replaceAll("'", "\""))
                 var dados = document.getElementById('dados').innerHTML
+
                 dados = dados.replaceAll("ObjectId(", "")
                 dados = dados.replaceAll("'", "\"")
                 dados = dados.replaceAll(")", "")
@@ -122,12 +125,13 @@
                     if (dados[i].status == 1)
                         dadosEvento.push(
                             {
-                                id: '2',
-                                resourceId: 'b',
+                                id: JSON.stringify(dados[i]),
+                                resourceId: 'doutor',
                                 start: dataToString(dataDeInicio),
                                 end: dataToString(dataDoFim),
                                 title: dados[i].patient_name,
-                                url: 'http://localhost:8000/sequences/process/' + dados[i].code
+                                tip: 'Personal tip 2'
+                                //url: 'http://localhost:8000/sequences/process/' + dados[i].code
                             }
                         )
                 }
@@ -166,7 +170,24 @@
                                 },
                                 initialView: 'dayGridMonth',
                                 events: dadosEvento,
-                                eventTimeFormat: { hour: '2-digit', minute: '2-digit', meridiem: true }
+                                eventTimeFormat: { hour: '2-digit', minute: '2-digit', meridiem: true },
+                                eventRender: function (event, element) {
+                                    element.attr('title', event.tip);
+                                },
+
+
+                                eventClick: function (info) {
+                                    if(tipoUsuario.role=="doctor")
+                                        console.log("doutor:tem link")
+                                    else
+                                        console.log("outros:sem link")
+
+                                    console.log(info.event.id);
+                                    // change the border color just for fun
+                                    info.el.style.borderColor = 'red';
+                                }
+
+
                             });
                             calendar.render();
                         },
@@ -178,7 +199,7 @@
 
 
                 //Corrigindo bug ao alternar meses
-                onload = function () { 
+                onload = function () {
                     var botao1 = document.getElementsByClassName('fc-prev-button btn btn-primary')[0]
                     var botao2 = document.getElementsByClassName('fc-next-button btn btn-primary')[0]
                     var botao3 = document.getElementsByClassName('fc-today-button btn btn-primary')[0]
@@ -187,6 +208,7 @@
                     botao3.addEventListener('click', checarBotao, false);
 
                 }
+
 
                 function checarBotao() {
                     var botao1 = document.getElementsByClassName('fc-prev-button btn btn-primary')[0]
