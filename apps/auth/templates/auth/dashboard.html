@@ -72,28 +72,32 @@
 
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                 Launch demo modal
-              </button>
-              
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Detalhes do agendamento</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div id="mensagem-modal" class="modal-body">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            {% if auth_user.role == 'doctor' %}
+                            <a type="button" class="btn btn-primary consulta">Ir para consulta</a>
+                            {% endif %}
+
+                        </div>
                     </div>
-                    <div class="modal-body">
-                      ...
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
                 </div>
-              </div>
+            </div>
 
             <span hidden id="dados">{{sequences}}</span>
             <span hidden id="tipo_usuario">{{auth_user}}</span>
@@ -128,8 +132,6 @@
                     return (data.getFullYear() + "-" + mes + "-" + dia + "T" + hora + ":" + minutos + ":00");
                 }
 
-
-
             </script>
 
             <script>
@@ -155,20 +157,10 @@
                                 start: dataToString(dataDeInicio),
                                 end: dataToString(dataDoFim),
                                 title: dados[i].patient_name,
-                                tip: 'Personal tip 2'
-                                //url: 'http://localhost:8000/sequences/process/' + dados[i].code
+
                             }
                         )
                 }
-
-
-                // dadosEvento = [
-                //     { id: '1', resourceId: 'a', start: '2020-09-07T02:30:00', end: '2020-09-07T03:00:00', title: 'THIAGO DOS SANTOS', tip: 'Personal tip 2' },
-                //     { id: '2', resourceId: 'b', start: '2020-09-07T03:30:00', end: '2020-09-07T04:00:00', title: 'MARCOS FREITAS', url: 'https://google.com', tip: 'Personal tip 2' },
-                //     { id: '3', resourceId: 'c', start: '2020-09-07T04:30:00', end: '2020-09-07T05:00:00', title: 'MIRIAM SIQUEIRA', url: 'https://google.com', tip: 'Personal tip 2' },
-                //     { id: '4', resourceId: 'd', start: '2020-09-07T14:00:00', end: '2020-09-07T14:30:00', title: 'SAMUEL MOURÃO', url: 'https://google.com', tip: 'Personal tip 2' }
-                // ]
-
 
                 document.addEventListener('DOMContentLoaded', function () {
                     var calendarEl = document.getElementById('calendar');
@@ -196,19 +188,26 @@
                                 initialView: 'dayGridMonth',
                                 events: dadosEvento,
                                 eventTimeFormat: { hour: '2-digit', minute: '2-digit', meridiem: true },
-                                eventRender: function (event, element) {
-                                    element.attr('title', event.tip);
-                                },
+
 
 
                                 eventClick: function (info) {
-                                    if(tipoUsuario.role=="doctor")
-                                        console.log("doutor:tem link")
-                                    else
-                                        console.log("outros:sem link")
+                                    var mensagem;
+                                    var detalhes = JSON.parse(info.event.id)
+                                    var linkConsulta = "/sequences/process/" + detalhes.code
 
-                                    console.log(info.event.id);
-                                    // change the border color just for fun
+                                    mensagem = "<b>Doutor</b> :</b> " + detalhes.doctor + "<br>"
+                                    mensagem = mensagem + "<b>Paciente</b> : " + detalhes.patient_name + "<br>"
+                                    mensagem = mensagem + "<b>Data</b> : " + detalhes.date + "<br>"
+                                    mensagem = mensagem + "<b>Hora</b> : " + detalhes.shift+ "<br>"
+                                    mensagem = mensagem + "<span class='label label-info'>Aberto</span>"
+
+                                    if (document.getElementsByClassName('btn btn-primary consulta')[0])
+                                        document.getElementsByClassName('btn btn-primary consulta')[0].href = linkConsulta
+
+                                    document.getElementById('mensagem-modal').innerHTML = mensagem
+                                    document.getElementsByClassName('btn btn-primary')[0].click()
+
                                     info.el.style.borderColor = 'red';
                                 }
 
