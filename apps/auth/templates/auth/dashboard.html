@@ -116,21 +116,19 @@
                 for (var i = 0; i < dados.length; i++) {
                     var dataDeInicio = dataInicio(dados[i])
                     var dataDoFim = dataFim(dataDeInicio)
-                    
-                    console.log(dados[i].date)
-                    dadosEvento.push(
-                        {
-                            id: '2',
-                            resourceId: 'b',
-                            start: dataToString(dataDeInicio),
-                            end: dataToString(dataDoFim),
-                            title: dados[i].patient_name,
-                            url: 'http://localhost:8000/sequences/process/' + dados[i].code
-                        }
-                    )
+
+                    if (dados[i].status == 1)
+                        dadosEvento.push(
+                            {
+                                id: '2',
+                                resourceId: 'b',
+                                start: dataToString(dataDeInicio),
+                                end: dataToString(dataDoFim),
+                                title: dados[i].patient_name,
+                                url: 'http://localhost:8000/sequences/process/' + dados[i].code
+                            }
+                        )
                 }
-                //console.log(dataToString(dataDeInicio))
-                //console.log(dataToString(dataDoFim))
 
 
                 // dadosEvento = [
@@ -230,7 +228,7 @@
                     display: none;
                 }
 
-                .fc-daygrid-event.fc-daygrid-dot-event.fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end.fc-event-today {
+                .fc-daygrid-event {
                     display: grid;
                     display: grid;
                     background-color: aqua;
