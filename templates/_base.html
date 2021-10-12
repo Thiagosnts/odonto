@@ -68,6 +68,37 @@
     margin: auto;
     display: block
 }
+.fundo-img{width: 100%;
+    background-image: url(https://colorlib.com/etc/bootstrap-sidebar/sidebar-09/images/bg_1.jpg)!important;
+    opacity: 1;
+    background-size: 100%!important;
+    background-repeat: no-repeat!important}
+
+    #sidebar {
+    min-width: 300px!important;
+    max-width: 300px!important;
+    background: #32373d!important;
+    color: #fff!important;
+    -webkit-transition: all .3s!important;
+    -o-transition: all .3s!important;
+    transition: all .3s!important;
+    position: relative!important;
+}
+#sidebar ul li a {
+    padding: 15px 30px!important;
+    display: block!important;
+    color: rgba(255,255,255,.6)!important;
+    border-bottom: 1px solid rgba(255,255,255,.05)!important;
+}
+
+#sidebar ul li a:hover {
+    color: white!important;
+    background: #2f89fc!important;
+    border-bottom: 1px solid #2f89fc!important;
+}
+
+.dropdown-toggle::after {
+    display: none!important;}
     </style>
 
     {% load static %}
@@ -88,13 +119,13 @@
     <div class="wrapper">
         <!-- Sidebar  -->
         <nav id="sidebar">
-            <div class="sidebar-header">
+            <div class="sidebar-header fundo-img">
                 <!-- <h3>Lead Odonto+</h3> -->
                 <img class="avatar-img" src="https://img.elo7.com.br/product/original/24CC0ED/caricatura-rosto.jpg">
-                <h3>Lead Odonto</h3>
+                <h5 style="text-align: center;"><b>Dr.</b> Thiago Santos</h5>
             </div>
 
-            <ul class="list-unstyled components">
+            <ul class="list-unstyled">
                 <!-- <p>Dummy Heading</p> -->
                 <li {% block active-dashboard %}{% endblock %}>
                     <a href="{% url 'dashboard' %}">
