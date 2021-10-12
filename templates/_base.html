@@ -34,85 +34,105 @@
                 grid-template-columns: 33% 33% 33%;
             }
         }
-        .alert{box-shadow: 1px 2px 7px rgb(0 0 0 / 12%);}
 
-        .list-unstyled.components a{color: white!important;}
+        .alert {
+            box-shadow: 1px 2px 7px rgb(0 0 0 / 12%);
+        }
+
+        .list-unstyled.components a {
+            color: white !important;
+        }
 
         .label-success {
-    background-color: #5cb85c;
-}
+            background-color: #5cb85c;
+        }
 
-.label-danger {
-    background: #d9534f!important;
-    color: white!important;
-}
+        .label-danger {
+            background: #d9534f !important;
+            color: white !important;
+        }
 
-.label-info {
-    background-color: #5bc0de;
-}
+        .label-info {
+            background-color: #5bc0de;
+        }
 
-.label {
-    display: inline;
-    padding: .2em .6em .3em;
-    font-size: 75%;
-    font-weight: bold;
-    line-height: 1;
-    color: #ffffff;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: .25em;
-}
-.avatar-img{
-    width: 100px;
-    border-radius: 100%;
-    margin: auto;
-    display: block
-}
-.fundo-img{width: 100%;
-    background-image: url(https://colorlib.com/etc/bootstrap-sidebar/sidebar-09/images/bg_1.jpg)!important;
-    opacity: 1;
-    background-size: 100%!important;
-    background-repeat: no-repeat!important}
+        .label {
+            display: inline;
+            padding: .2em .6em .3em;
+            font-size: 75%;
+            font-weight: bold;
+            line-height: 1;
+            color: #ffffff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: .25em;
+        }
 
-    #sidebar {
-    min-width: 300px!important;
-    max-width: 300px!important;
-    background: #32373d!important;
-    color: #fff!important;
-    -webkit-transition: all .3s!important;
-    -o-transition: all .3s!important;
-    transition: all .3s!important;
-    position: relative!important;
-}
-#sidebar ul li a {
-    padding: 15px 30px!important;
-    display: block!important;
-    color: rgba(255,255,255,.6)!important;
-    border-bottom: 1px solid rgba(255,255,255,.05)!important;
-}
+        .avatar-img {
+            width: 100px;
+            border-radius: 100%;
+            margin: auto;
+            display: block
+        }
 
-#sidebar ul li a:hover {
-    color: white!important;
-    background: #2f89fc!important;
-    border-bottom: 1px solid #2f89fc!important;
-}
+        .fundo-img {
+            width: 100%;
+            background-image: url(https://colorlib.com/etc/bootstrap-sidebar/sidebar-09/images/bg_1.jpg) !important;
+            opacity: 1;
+            background-size: 100% !important;
+            background-repeat: no-repeat !important
+        }
 
-.dropdown-toggle::after {
-    display: none!important;}
+        #sidebar {
+            min-width: 300px !important;
+            max-width: 300px !important;
+            background: #32373d !important;
+            color: #fff !important;
+            -webkit-transition: all .3s !important;
+            -o-transition: all .3s !important;
+            transition: all .3s !important;
+            position: relative !important;
+        }
 
-    thead tr{background-color: #0067ac!important;
-    color: white;}
+        #sidebar ul li a {
+            padding: 15px 30px !important;
+            display: block !important;
+            color: rgba(255, 255, 255, .6) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, .05) !important;
+        }
 
-    .table.table-hover tr:nth-child(2n+1) {
-    background-color: #e6e6e6;
-}
-.table-hover tbody tr:hover {
-    background-color: mediumspringgreen!important;
-}
-.titulo-avatar{text-align: center;text-shadow: #000 0px 1px 0px;}
-.titulo-forte{color: #0067ac;}
+        #sidebar ul li a:hover {
+            color: white !important;
+            background: #2f89fc !important;
+            border-bottom: 1px solid #2f89fc !important;
+        }
 
+        .dropdown-toggle::after {
+            display: none !important;
+        }
+
+        thead tr {
+            background-color: #0067ac !important;
+            color: white;
+        }
+
+        .table.table-hover tr:nth-child(2n+1) {
+            background-color: #e6e6e6;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: mediumspringgreen !important;
+        }
+
+        .titulo-avatar {
+            text-align: center;
+            text-shadow: #000 0px 1px 0px;
+        }
+
+        .titulo-forte {
+            color: #0067ac;
+        }
     </style>
 
     {% load static %}
@@ -197,6 +217,12 @@
                         {% endif %}
                     </ul>
                 </li>
+                <li class="settings hidden-xs hidden-sm">
+                    <a href="/logout/" role="button" style="border: none!important;">
+                        Sair
+                        <i class="icon-share-alt"></i>
+                    </a>
+                </li>
 
             </ul>
 
@@ -238,7 +264,7 @@
                         <i class="fas fa-align-justify"></i>
                     </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
                             <li class="settings hidden-xs hidden-sm">
                                 <a href="{% url 'logout' %}" role="button">
@@ -247,7 +273,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                 </div>
             </nav>
 
@@ -257,7 +283,7 @@
         </div>
     </div>
 
-   
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
         integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
         crossorigin="anonymous"></script>
