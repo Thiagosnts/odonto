@@ -136,7 +136,15 @@
             <div class="sidebar-header fundo-img">
                 <!-- <h3>Lead Odonto+</h3> -->
                 <img class="avatar-img" src="https://img.elo7.com.br/product/original/24CC0ED/caricatura-rosto.jpg">
-                <h5 class="titulo-avatar"><b class="titulo-forte">Dr.</b> Thiago Santos</h5>
+                {% if auth_user.role == 'office' %}
+                <h5 class="titulo-avatar"><b class="titulo-forte">Office </b> {{ auth_user.username }}</h5>
+                {% endif %}
+                {% if auth_user.role == 'doctor' %}
+                <h5 class="titulo-avatar"><b class="titulo-forte">Dr </b> {{ auth_user.username }}</h5>
+                {% endif %}
+                {% if auth_user.role == 'admin' %}
+                <h5 class="titulo-avatar"><b class="titulo-forte">Administrador </b> {{ auth_user.username }}</h5>
+                {% endif %}
             </div>
 
             <ul class="list-unstyled">
@@ -205,7 +213,7 @@
                         <span>Toggle Sidebar</span>
                     </button> -->
 
-                    <span><a>Usuário:<b>{{ auth_user.username|title }}</b> - Papel: <b>{{ auth_user.role|title}}</b></a></span>
+                    <!-- <span><a>Usuário:<b>{{ auth_user.username|title }}</b> - Papel: <b>{{ auth_user.role|title}}</b></a></span> -->
 
 
                     <div>
