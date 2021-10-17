@@ -106,7 +106,7 @@ def check_patient(request, dni):
         patient = Patients.find_patient(dni)
         diagnostics = Patients.find_diagnostics(dni)
         if patient is None:
-            error(request, "This patient does not exist")
+            error(request, "Esse paciente não existe")
             return redirect('patients')
         return render(request, 'patients/check.html',
                       {'auth_user': auth_user, 'patient': patient, 'diagnostics': diagnostics})

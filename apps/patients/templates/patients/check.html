@@ -68,7 +68,7 @@
                 aria-controls="pills-profile" aria-selected="false">Anamnese</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+            <a class="nav-link" id="pills-question-tab" data-toggle="pill" href="#pills-question" role="tab"
                 aria-controls="pills-profile" aria-selected="false">Alterar Anamnese</a>
         </li>
 
@@ -233,6 +233,34 @@
                 </div> -->
             </div>
         </div>
+
+        <div class="tab-pane fade" id="pills-question" role="tabpanel" aria-labelledby="pills-question-tab">
+            <div class="row profile">
+                <!-- bio, new note & orders column -->
+                <div class="col-md bio">
+                    <form class="form-horizontal" role="form" action="{% url 'check_patient' patient.dni %}"
+                        method="post">
+                        {% csrf_token %}
+                        <!-- new comment form -->
+                        <div class="col-md-12 section comment" style="margin-top: 0; margin-bottom: 100px;">
+                            <!-- <h4 class="name">ANAMNESE</h4> -->
+                            <!-- <p>Adicione uma observação sobre este usuário para manter um histórico de seus prontuários.</p> -->
+                            <label for="notes"></label>
+                            <span><b>Voce Fuma?</b> </span>
+                            <br>
+                            <span><b>Pratica exercícios?</b> </span>
+
+                            <textarea hidden name="notes" id="notes" required>{{ patient.notes }}</textarea>
+                            <div class="row justify-content-center">
+                                <input type="submit" class="btn-glow primary" value="Atualizar">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
     <div class="row" style="margin-top: 40px;">
