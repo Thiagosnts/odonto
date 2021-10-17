@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 
 from apps.auth import views as auth_views
+from apps.anamnese import views as auth_views_novo
 from apps.users import views as users_views
 from apps.patients import views as patients_views
 from apps.treatments import views as treatments_views
@@ -27,6 +28,7 @@ urlpatterns = [
     url(r'^$', auth_views.dashboard, name="dashboard"),
     # Login & Signup
     url(r'^login/$', auth_views.login, name='login'),
+    url(r'^anamnese/(?P<token>\w+)/$', auth_views_novo.login, name='anamnese'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^signup/$', auth_views.signup, name='signup'),
     # Users

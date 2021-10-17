@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'apps.patients',
     'apps.treatments',
     'apps.treatment_sequences',
-    'apps.reports'
+    'apps.reports',
+    'apps.anamnese',
+
 ]
 
 MIDDLEWARE = [
@@ -71,6 +73,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'apps/treatments/templates/'),
             os.path.join(BASE_DIR, 'apps/treatment_sequences/templates/'),
             os.path.join(BASE_DIR, 'apps/reports/templates/'),
+            os.path.join(BASE_DIR, 'apps/anamnese/templates/'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
