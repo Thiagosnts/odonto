@@ -26,7 +26,7 @@
     }
 
     .nav-link.active {
-        margin-top: 0;        
+        margin-top: 0;
         background: linear-gradient(#54b3ff, #0067ac);
         box-shadow: inset 0px 1px 0px 0px rgb(255 255 255 / 50%);
         padding-bottom: 0.8rem;
@@ -77,6 +77,37 @@
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
             <div class="row profile" style="margin-top: 50px; padding: 0 20px;">
                 <div class="">
+
+
+                    <table class="table table-hover">
+                        <tbody>
+
+                            <tr>
+                                <td colspan="2"><span>Dentes</span></td>
+                                <td colspan="2"><input type="text" class="form-control inline-input" name="tooths"
+                                        id="tooths" placeholder="Dentes" required=""></td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2"><span>Diagnóstico</span></td>
+                                <td colspan="2"><input type="text" class="form-control inline-input" name="diagnostic"
+                                        id="diagnostic" placeholder="Diagnostico" required=""></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="submit" class="btn-glow primary" value="Adicionar Diagnostico">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    
+
                     <form class="form-horizontal" role="form" action="{% url 'create_diagnostic' patient.dni %}"
                         method="post">
                         {% csrf_token %}
