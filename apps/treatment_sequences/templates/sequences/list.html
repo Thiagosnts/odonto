@@ -14,19 +14,20 @@
 
 {% block content %}
     <div id="pad-wrapper" class="users-list">
+        <h3 class="text-center p-3  badge badge-secondary">Consultas</h3>
         <div class="row header">
-            <h3>Consultas</h3>
             <div class="col-md-9 col-sm-12 col-xs-12 pull-right">
-                <form class="form-horizontal" role="form" action="{% url 'sequences' %}" method="get">
+                <form class="mt-4 mb-4 form-horizontal" role="form" action="{% url 'sequences' %}" method="get">
                     {% csrf_token %}
                     <input type="text" class="col-md-5 search" name="search" placeholder="Digite o Codigo ...">
-                </form>
-                {% if auth_user.role == 'admin' or auth_user.role == 'office'  %}
+                    {% if auth_user.role == 'admin' or auth_user.role == 'office'  %}
                     <a href="{% url 'create_sequence' %}" class="btn-flat success pull-right">
                         <span>&#43;</span>
                         NOVA CONSULTA 
                     </a>
                 {% endif %}
+                </form>
+
             </div>
         </div>
         <!-- Treatment Sequences table -->

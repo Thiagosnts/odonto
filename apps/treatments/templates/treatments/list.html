@@ -14,10 +14,10 @@
 
 {% block content %}
 <div id="pad-wrapper" class="users-list">
+    <h1 class="text-center p-3  badge badge-secondary">Tratamento</h1>
     <div class="row header">
-        <h3>Tratamento</h3>
         <div class="col-md-10 col-sm-12 col-xs-12 pull-right">
-            <form class="form-horizontal" role="form" action="{% url 'treatments' %}" method="get">
+            <form class="mt-4 mb-4 form-horizontal" role="form" action="{% url 'treatments' %}" method="get">
                 {% csrf_token %}
                 <input type="text" class="col-md-5 search" name="search" placeholder="Nome do Tratamento">
                 {% if auth_user.role == 'admin' or auth_user.role == 'office' %}
