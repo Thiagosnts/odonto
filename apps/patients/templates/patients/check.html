@@ -181,12 +181,16 @@
                         {% csrf_token %}
                         <!-- new comment form -->
                         <div class="col-md-12 section comment" style="margin-top: 0; margin-bottom: 100px;">
-                            <h4 class="name">ANAMNESE</h4>
+                            <!-- <h4 class="name">ANAMNESE</h4> -->
                             <!-- <p>Adicione uma observação sobre este usuário para manter um histórico de seus prontuários.</p> -->
                             <label for="notes"></label>
-                            <textarea name="notes" id="notes" required>{{ patient.notes }}</textarea>
-                            <div class="col-md-12 submit-box pull-right">
+                            <p>Voce Fuma? <b><br>Não</b></p>
+                            <p>Pratica exercícios? <b><br>Não</b></p>
+
+                            <textarea hidden name="notes" id="notes" required>{{ patient.notes }}</textarea>
+                            <div class="row justify-content-center">
                                 <input type="submit" class="btn-glow primary" value="Atualizar">
+                                <input type="submit" class="ml-4 btn-glow primary" value="Enviar para Paciente">
                             </div>
                         </div>
                     </form>
