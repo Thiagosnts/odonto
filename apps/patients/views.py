@@ -172,3 +172,35 @@ def delete_patient(request, dni):
         return response
     success(request, "Paciente deletado com sucesso")
     return response
+
+def create_question(request, dni):
+    auth_user = Sessions.validate_auth(request)
+    if auth_user is None:
+        error(request, "Você precisa Logar Primeiro")
+        return redirect('login')
+    if request.method == 'POST':
+        question = request.POST['question']
+        form = validate_form(request.POST)
+        if form is not True:
+            error(request, "Existe um problema com as suas informações, Favor Verificar")
+            return redirect('check_patient', dni=dni)
+        result = Patients.add_diagnostic(dni, question)
+        if result is not True:
+            error(request, result)
+        else:
+            success(request, "Pergunta atualizado com sucesso")
+        return redirect('check_patient', dni=dni)
+
+
+# def delete_diagnostic(request, dni, code):
+#     auth_user = Sessions.validate_auth(request)
+#     if auth_user is None:
+#         error(request, "Você precisa Logar Primeiro")
+#         return redirect('login')
+#     if request.method == 'GET':
+#         result = Patients.delete_diagnostic(dni, code)
+#         if result is not True:
+#             error(request, result)
+#         else:
+#             success(request, "Paciente atualizado com sucesso")
+#         return redirect('check_patient', dni=dni)
