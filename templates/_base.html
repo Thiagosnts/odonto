@@ -5,15 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="pt-br">
+
 
     <title>Lead Odonto | {% block title %} {% endblock %}</title>
 
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 
     <style>
         @media (min-width: 768px) {
@@ -38,31 +34,113 @@
                 grid-template-columns: 33% 33% 33%;
             }
         }
-        .alert{box-shadow: 1px 2px 7px rgb(0 0 0 / 12%);}
+
+        .alert {
+            box-shadow: 1px 2px 7px rgb(0 0 0 / 12%);
+        }
+
+        .list-unstyled.components a {
+            color: white !important;
+        }
+
+        .label-success {
+            background-color: #5cb85c;
+        }
+
+        .label-danger {
+            background: #d9534f !important;
+            color: white !important;
+        }
+
+        .label-info {
+            background-color: #5bc0de;
+        }
+
+        .label {
+            display: inline;
+            padding: .2em .6em .3em;
+            font-size: 75%;
+            font-weight: bold;
+            line-height: 1;
+            color: #ffffff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: .25em;
+        }
+
+        .avatar-img {
+            width: 100px;
+            border-radius: 100%;
+            margin: auto;
+            display: block
+        }
+
+        .fundo-img {
+            width: 100%;
+            background-image: url(https://colorlib.com/etc/bootstrap-sidebar/sidebar-09/images/bg_1.jpg) !important;
+            opacity: 1;
+            background-size: 100% !important;
+            background-repeat: no-repeat !important
+        }
+
+        #sidebar {
+            min-width: 300px !important;
+            max-width: 300px !important;
+            background: #32373d !important;
+            color: #fff !important;
+            -webkit-transition: all .3s !important;
+            -o-transition: all .3s !important;
+            transition: all .3s !important;
+            position: relative !important;
+        }
+
+        #sidebar ul li a {
+            padding: 15px 30px !important;
+            display: block !important;
+            color: rgba(255, 255, 255, .6) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, .05) !important;
+        }
+
+        #sidebar ul li a:hover {
+            color: white !important;
+            background: #2f89fc !important;
+            border-bottom: 1px solid #2f89fc !important;
+        }
+
+        .dropdown-toggle::after {
+            display: none !important;
+        }
+
+        thead tr {
+            background-color: #0067ac !important;
+            color: white;
+        }
+
+        .table.table-hover tr:nth-child(2n+1) {
+            background-color: #e6e6e6;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: mediumspringgreen !important;
+        }
+
+        .titulo-avatar {
+            text-align: center;
+            text-shadow: #000 0px 1px 0px;
+        }
+
+        .titulo-forte {
+            color: #0067ac;
+        }
     </style>
-
-
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-        crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-        crossorigin="anonymous"></script>
 
     {% load static %}
 
-
-    <link href="{% static 'css/bootstrap/bootstrap.css' %}" rel="stylesheet" />
-    <!--<link href="{% static 'css/bootstrap/bootstrap-overrides.css' %}" type="text/css" rel="stylesheet" />-->
-
-
-    <link href="{% static 'css/lib/jquery-ui-1.10.2.custom.css' %}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link href="{% static 'css/lib/font-awesome.css' %}" type="text/css" rel="stylesheet" />
-    <!-- <link href="{% static 'css/lib/bootstrap.datepicker.css' %}" type="text/css" rel="stylesheet" />-->
-
-    <!-- global styles 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/compiled/layout.css' %}" />-->
     <link rel="stylesheet" type="text/css" href="{% static 'css/compiled/elements.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/compiled/style.css' %}" />
 
@@ -75,11 +153,21 @@
     <div class="wrapper">
         <!-- Sidebar  -->
         <nav id="sidebar">
-            <div class="sidebar-header">
-                <h3>Lead Odonto+</h3>
+            <div class="sidebar-header fundo-img">
+                <!-- <h3>Lead Odonto+</h3> -->
+                <img class="avatar-img" src="https://img.elo7.com.br/product/original/24CC0ED/caricatura-rosto.jpg">
+                {% if auth_user.role == 'office' %}
+                <h5 class="titulo-avatar"><b class="titulo-forte">Office </b> {{ auth_user.username }}</h5>
+                {% endif %}
+                {% if auth_user.role == 'doctor' %}
+                <h5 class="titulo-avatar"><b class="titulo-forte">Dr </b> {{ auth_user.username }}</h5>
+                {% endif %}
+                {% if auth_user.role == 'admin' %}
+                <h5 class="titulo-avatar"><b class="titulo-forte">Administrador </b> {{ auth_user.username }}</h5>
+                {% endif %}
             </div>
 
-            <ul class="list-unstyled components">
+            <ul class="list-unstyled">
                 <!-- <p>Dummy Heading</p> -->
                 <li {% block active-dashboard %}{% endblock %}>
                     <a href="{% url 'dashboard' %}">
@@ -129,6 +217,12 @@
                         {% endif %}
                     </ul>
                 </li>
+                <li class="settings hidden-xs hidden-sm">
+                    <a href="/logout/" role="button" style="border: none!important;">
+                        Sair
+                        <i class="icon-share-alt"></i>
+                    </a>
+                </li>
 
             </ul>
 
@@ -145,7 +239,7 @@
                         <span>Toggle Sidebar</span>
                     </button> -->
 
-                    <span><a>Usuário:<b>{{ auth_user.username|title }}</b> - Papel: <b>{{ auth_user.role|title}}</b></a></span>
+                    <!-- <span><a>Usuário:<b>{{ auth_user.username|title }}</b> - Papel: <b>{{ auth_user.role|title}}</b></a></span> -->
 
 
                     <div>
@@ -170,7 +264,7 @@
                         <i class="fas fa-align-justify"></i>
                     </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
                             <li class="settings hidden-xs hidden-sm">
                                 <a href="{% url 'logout' %}" role="button">
@@ -179,26 +273,17 @@
                                 </a>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                 </div>
             </nav>
 
-            <!-- <h2>Collapsible Sidebar Using Bootstrap 4</h2> -->
 
             {% block content %}{% endblock %}
 
         </div>
     </div>
 
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-        crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
         integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
         crossorigin="anonymous"></script>

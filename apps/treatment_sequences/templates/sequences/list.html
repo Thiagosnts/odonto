@@ -87,19 +87,19 @@
                                 <td>
                                     {% if sequence.status == 1 or sequence.status == 2 %}
                                         {% if auth_user.role == 'admin' or auth_user.role == 'doctor'  %}
-                                            <a href="{% url 'process_sequence' sequence.code %}">Processos</a>
+                                            <a class="btn-glow primary" href="{% url 'process_sequence' sequence.code %}">Consultar</a>
                                             &nbsp;
                                         {% endif %}
                                     {% endif %}
                                     {% if sequence.status == 1 %}
                                         {% if auth_user.role == 'admin' or auth_user.role == 'office'  %}
-                                            <a href="{% url 'cancel_sequence' sequence.code %}">Cancelar</a>
+                                            <a class="btn-glow label-danger" href="{% url 'cancel_sequence' sequence.code %}">Cancelar</a>
                                             &nbsp;
                                         {% endif %}
                                     {% endif %}
                                     {% if sequence.status == 3 %}
                                         {% if auth_user.role == 'admin' or auth_user.role == 'office'  %}
-                                            <a href="{% url 'invoice_sequence' sequence.code %}">Informações de Pagamento</a>
+                                            <a class="btn-glow" href="{% url 'invoice_sequence' sequence.code %}">Pagamentos</a>
                                             &nbsp;
                                         {% endif %}
                                     {% endif %}
