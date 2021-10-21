@@ -111,7 +111,9 @@ def check_patient(request, dni):
         return render(request, 'patients/check.html',
                       {'auth_user': auth_user, 'patient': patient, 'diagnostics': diagnostics})
     else:
-        notes = request.POST['notes']
+        # notes = request.POST['notes']
+        notes = request.POST['question']
+
         form = validate_form(request.POST)
         if form is not True:
             error(request, "Existe um problema com as suas informações, Favor Verificar")
@@ -119,8 +121,10 @@ def check_patient(request, dni):
         result = Patients.edit_patient_notes(dni, notes)
         if result is not True:
             error(request, result)
+        # else:
+        #     success(request, "Prontuário atualizado com sucesso")
         else:
-            success(request, "Prontuário atualizado com sucesso")
+            success(request, "Pergunta adicionada com sucesso")
         return redirect('check_patient', dni=dni)
 
 

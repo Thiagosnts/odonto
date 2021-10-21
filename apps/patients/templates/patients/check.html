@@ -277,13 +277,13 @@
                             <!-- <h4 class="name">ANAMNESE</h4> -->
                             <!-- <p>Adicione uma observação sobre este usuário para manter um histórico de seus prontuários.</p> -->
                             <label for="notes"></label>
-                            <span><b>Voce Fuma?</b> </span>
-                            <br>
-                            <span><b>Pratica exercícios?</b> </span>
+                            <span><b>Adicionar Perguntas</b> </span>
+                            <input type="text" class="form-control inline-input" name="question" id="question">
 
-                            <textarea hidden name="notes" id="notes" required>{{ patient.notes }}</textarea>
+
+                            <!-- <textarea hidden name="notes" id="notes" required>{{ patient.notes }}</textarea> -->
                             <div class="row justify-content-center">
-                                <input type="submit" class="btn-glow primary" value="Atualizar">
+                                <input type="submit" class="btn-glow primary mt-3" value="Adicionar">
                             </div>
                         </div>
                     </form>
