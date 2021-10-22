@@ -286,21 +286,21 @@
                                 <input type="submit" class="btn-glow primary mt-3" value="Adicionar">
                             </div>
                             <ul>
-                            {% if questions != None %}
-                            {% for question in questions %}
-                            
+                                {% if questions != None %}
+                                {% for question in questions %}
+
                                 <li>
                                     {{question.question}}
-                                    <a class="btn-glow" href="/patients/check/16143152721/"><i class="icon-trash"></i>Deletar</a>
+                                    <a class="btn-glow" href="/patients/check/16143152721/"><i
+                                            class="icon-trash"></i>Deletar</a>
                                 </li>
-
                                 {% endfor %}
                                 {% else %}
                                 <li class="first">
                                     Não há registros
                                 </li>
-                            
-                            {% endif %}
+
+                                {% endif %}
                             </ul>
                         </div>
                     </form>
@@ -316,4 +316,14 @@
     </div>
 
 </div>
+<!-- <script>
+    questions = []
+    {% if questions != None %}
+        {% for question in questions %}
+        questions.push('{{question.question}}')
+        {% endfor %}
+    {% endif %}
+</script> -->
+
+
 {% endblock %}
