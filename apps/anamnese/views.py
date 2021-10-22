@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.messages import error, success
 
+
 from apps.auth.models import Session
 from apps.users.models import User
 from apps.patients.models import Patient

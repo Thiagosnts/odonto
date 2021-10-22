@@ -3,6 +3,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
 from django.contrib.messages import error, success
 
+from apps.anamnese.models import Question
+
 from apps.auth.models import Session
 from apps.treatment_sequences.models import Sequence
 from .models import Patient
@@ -11,6 +13,9 @@ from dentaladmin.utils import validate_form
 Sessions = Session()
 Sequences = Sequence()
 Patients = Patient()
+Questions = Question()
+
+
 
 
 def index(request, search=None):
@@ -105,20 +110,23 @@ def check_patient(request, dni):
     if request.method == 'GET':
         patient = Patients.find_patient(dni)
         diagnostics = Patients.find_diagnostics(dni)
+        questions = Questions.list_questions()
         if patient is None:
             error(request, "Esse paciente não existe")
             return redirect('patients')
         return render(request, 'patients/check.html',
-                      {'auth_user': auth_user, 'patient': patient, 'diagnostics': diagnostics})
+                      {'auth_user': auth_user, 'patient': patient, 'diagnostics': diagnostics, 'questions':questions})
     else:
         # notes = request.POST['notes']
-        notes = request.POST['question']
+        question = request.POST['question']
 
         form = validate_form(request.POST)
         if form is not True:
             error(request, "Existe um problema com as suas informações, Favor Verificar")
             return redirect('check_patient', dni=dni)
-        result = Patients.edit_patient_notes(dni, notes)
+
+        result = Questions.add_question(question)
+        
         if result is not True:
             error(request, result)
         # else:
