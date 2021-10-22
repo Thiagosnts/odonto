@@ -2,13 +2,13 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.messages import error, success
 
-from .models import Auth, Session
+from apps.auth.models import Session
 from apps.users.models import User
 from apps.patients.models import Patient
 from apps.treatment_sequences.models import Sequence
 from dentaladmin.utils import validate_form
 
-Auths = Auth()
+
 Sessions = Session()
 Users = User()
 Patients = Patient()
