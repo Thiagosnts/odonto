@@ -210,7 +210,7 @@ def delete_question(request,dni, code):
     if Sessions.validate_auth(request) is None:
         error(request, "Você precisa Logar Primeiro")
         return redirect('login')
-    result = Patients.delete_question(code)
+    result = Questions.delete_question(code)
     # Sequences.cancel_sequences_from_patient(dni)
     response = redirect('patients')
     if result is not True:
