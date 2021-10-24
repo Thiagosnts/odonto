@@ -178,7 +178,7 @@ def delete_patient(request, dni):
         return redirect('login')
     result = Patients.delete_patient(dni)
     Sequences.cancel_sequences_from_patient(dni)
-    response = redirect('patients')
+    response = redirect('check_patient')
     if result is not True:
         error(request, result)
         return response
