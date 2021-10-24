@@ -116,24 +116,24 @@ def check_patient(request, dni):
             return redirect('patients')
         return render(request, 'patients/check.html',
                       {'auth_user': auth_user, 'patient': patient, 'diagnostics': diagnostics, 'questions':questions})
-    else:
-        # notes = request.POST['notes']
-        question = request.POST['question']
+    # else:
+    #     # notes = request.POST['notes']
+    #     # question = request.POST['question']
 
-        form = validate_form(request.POST)
-        if form is not True:
-            error(request, "Existe um problema com as suas informações, Favor Verificar")
-            return redirect('check_patient', dni=dni)
+    #     form = validate_form(request.POST)
+    #     if form is not True:
+    #         error(request, "Existe um problema com as suas informações, Favor Verificar")
+    #         return redirect('check_patient', dni=dni)
 
-        result = Questions.add_question(question)
+    #     # result = Questions.add_question(question)
         
-        if result is not True:
-            error(request, result)
-        # else:
-        #     success(request, "Prontuário atualizado com sucesso")
-        else:
-            success(request, "Pergunta adicionada com sucesso")
-        return redirect('check_patient', dni=dni)
+    #     if result is not True:
+    #         error(request, result)
+    #     # else:
+    #     #     success(request, "Prontuário atualizado com sucesso")
+    #     else:
+    #         success(request, "Pergunta adicionada com sucesso")
+    #     return redirect('check_patient', dni=dni)
 
 
 def create_diagnostic(request, dni):
@@ -196,23 +196,25 @@ def create_question(request, dni):
         if form is not True:
             error(request, "Existe um problema com as suas informações, Favor Verificar")
             return redirect('check_patient', dni=dni)
-        result = Patients.add_diagnostic(dni, question)
+
+        result = Questions.add_question(question)   
+
         if result is not True:
             error(request, result)
         else:
-            success(request, "Pergunta atualizado com sucesso")
+            success(request, "Pergunta adicionada com sucesso")
         return redirect('check_patient', dni=dni)
 
 
-# def delete_diagnostic(request, dni, code):
-#     auth_user = Sessions.validate_auth(request)
-#     if auth_user is None:
-#         error(request, "Você precisa Logar Primeiro")
-#         return redirect('login')
-#     if request.method == 'GET':
-#         result = Patients.delete_diagnostic(dni, code)
-#         if result is not True:
-#             error(request, result)
-#         else:
-#             success(request, "Paciente atualizado com sucesso")
-#         return redirect('check_patient', dni=dni)
+def delete_question(request,dni, code):
+    if Sessions.validate_auth(request) is None:
+        error(request, "Você precisa Logar Primeiro")
+        return redirect('login')
+    result = Patients.delete_question(code)
+    # Sequences.cancel_sequences_from_patient(dni)
+    response = redirect('patients')
+    if result is not True:
+        error(request, result)
+        return response
+    success(request, "Pergunta deletada com sucesso")
+    return response

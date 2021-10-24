@@ -68,5 +68,8 @@ urlpatterns = [
     url(r'^patients/check/(?P<dni>\d+)/question/create/$', patients_views.create_question,
         name='create_question'),
     # url(r'^anamnese/edit/(?P<code>\w+)/$', treatments_views.edit_treatment, name='edit_treatment'),
-    # url(r'^anamnese/delete/(?P<code>\w+)/$', treatments_views.delete_treatment, name='delete_treatment'),
+    # url(r'^patients/check/(?P<code>\w+)/$', treatments_views.delete_treatment, name='delete_treatment'),
+    url(r'^patients/check/(?P<dni>\d+)/question/delete/(?P<code>\d+)/$', patients_views.delete_question,
+        name='delete_question'),
+
 ]

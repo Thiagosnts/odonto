@@ -279,7 +279,7 @@
             <div class="row profile">
                 <!-- bio, new note & orders column -->
                 <div class="col-md bio">
-                    <form class="form-horizontal" role="form" action="{% url 'check_patient' patient.dni %}"
+               <form class="form-horizontal" role="form" action="{% url 'create_question' patient.dni %}" 
                         method="post">
                         {% csrf_token %}
                         <!-- new comment form -->
@@ -305,7 +305,7 @@
                                 <tr>
                                     <td>
                                         {{question.question}}</td>
-                                    <td><a class="btn-glow" href="/patients/check/16143152721/"><i
+                                    <td><a class="btn-glow" href="{% url 'delete_question' patient.dni question.code %}"><i
                                                 class="icon-trash"></i></a></td>
                                 </tr>
 
