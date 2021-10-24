@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.messages import error, success
 
-
+from apps.anamnese.models import Question
 from apps.auth.models import Session
 from apps.users.models import User
 from apps.patients.models import Patient
@@ -14,15 +14,23 @@ Sessions = Session()
 Users = User()
 Patients = Patient()
 Sequences = Sequence()
+Questions = Question()
+
 
 
 def anamnese(request,token=None):
     if(token!="admin"):
         return render(request, 'erro.html')
 
+    questions = Questions.list_questions()
+
+    if questions is None:
+        error(request, "Esse paciente não existe")
+        return redirect('patients')
 
     if request.method == 'GET':
-        return render(request, 'signup.html')
+
+        return render(request, 'signup.html', {'questions':questions})
     else:
         name = request.POST['name']  
         email = request.POST['email']  
