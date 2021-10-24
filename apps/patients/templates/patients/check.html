@@ -33,6 +33,16 @@
         padding-top: 0.8rem;
         box-shadow: 2px 2px 2px rgb(0 0 0 / 45%);
     }
+
+    .question-table td {
+        width: 100%;
+        padding: 7px 0 7px 7px;
+    }
+
+    tr:nth-child(2n+1) {
+        background-color: #e6e6e6;
+        box-shadow: 0px 1px 0px 0px rgb(255 255 255 / 20%) inset, 0px 1px 0px 0px #cccccc;
+    }
 </style>
 
 <div id="pad-wrapper" class="user-profile">
@@ -283,25 +293,30 @@
 
                             <!-- <textarea hidden name="notes" id="notes" required>{{ patient.notes }}</textarea> -->
                             <div class="row justify-content-center">
-                                <input type="submit" class="btn-glow primary mt-3" value="Adicionar">
+                                <input type="submit" class="btn-glow primary mt-3 mb-3" value="Adicionar">
                             </div>
-                            <ul>
+
+
+                            <table class="question-table">
                                 {% if questions != None %}
+
                                 {% for question in questions %}
 
-                                <li>
-                                    {{question.question}}
-                                    <a class="btn-glow" href="/patients/check/16143152721/"><i
-                                            class="icon-trash"></i>Deletar</a>
-                                </li>
+                                <tr>
+                                    <td>
+                                        {{question.question}}</td>
+                                    <td><a class="btn-glow" href="/patients/check/16143152721/"><i
+                                                class="icon-trash"></i></a></td>
+                                </tr>
+
                                 {% endfor %}
                                 {% else %}
-                                <li class="first">
-                                    Não há registros
-                                </li>
-
+                                <tr>
+                                    <td class="first"> Não há registros</td>
+                                </tr>
                                 {% endif %}
-                            </ul>
+                            </table>
+
                         </div>
                     </form>
                 </div>
@@ -311,7 +326,7 @@
 
     </div>
 
-    <div class="row" style="margin-top: 40px;">
+    <div class="row justify-content-center">
         <a href="{% url 'patients' %}" class="btn-flat success pull-left">Voltar</a>
     </div>
 
