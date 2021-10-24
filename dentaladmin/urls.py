@@ -63,7 +63,7 @@ urlpatterns = [
     url(r'^reports_total/$', reports_views.total, name='reports_total'),
     url(r'^reports_payment/$', reports_views.payment, name='reports_payment'),
     # Anamnese
-    url(r'^anamnese/(?P<token>\w+)/$', anamnese_views.login, name='anamnese'),
+    url(r'^anamnese/(?P<token>\w+)/$', anamnese_views.anamnese, name='anamnese'),
     # url(r'^anamnese/$', treatments_views.index, name='treatments'),
     url(r'^patients/check/(?P<dni>\d+)/question/create/$', patients_views.create_question,
         name='create_question'),

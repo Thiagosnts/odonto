@@ -16,9 +16,13 @@ Patients = Patient()
 Sequences = Sequence()
 
 
-def signup(request):
+def anamnese(request,token=None):
+    if(token!="admin"):
+        return render(request, 'erro.html')
+
+
     if request.method == 'GET':
-        return render(request, 'auth/signup.html')
+        return render(request, 'signup.html')
     else:
         name = request.POST['name']  
         email = request.POST['email']  
@@ -43,35 +47,35 @@ def signup(request):
         return response
 
 
-def login(request, token):
-    username=token
-    if request.method == 'GET':
-        return render(request, 'auth/login.html')
-    else:
-        if Sessions.validate_auth(request) is not None:
-            error(request, "Você ja esta logado")
-            return redirect('/')
-        username = request.POST['username']
-        password = request.POST['password']
-        user = Auths.login(username, password)
-        if user is None:
-            error(request, "Erro de autenticação de usuário")
-            return redirect('login')
-        session_id = Sessions.start_session(user["username"], user["role"])
-        response = redirect('/')
-        response.set_cookie(key="session", value=session_id)
-        success(request,None)
-        return response
+# def login(request, token):
+#     username=token
+#     if request.method == 'GET':
+#         return render(request, 'auth/login.html')
+#     else:
+#         if Sessions.validate_auth(request) is not None:
+#             error(request, "Você ja esta logado")
+#             return redirect('/')
+#         username = request.POST['username']
+#         password = request.POST['password']
+#         user = Auths.login(username, password)
+#         if user is None:
+#             error(request, "Erro de autenticação de usuário")
+#             return redirect('login')
+#         session_id = Sessions.start_session(user["username"], user["role"])
+#         response = redirect('/')
+#         response.set_cookie(key="session", value=session_id)
+#         success(request,None)
+#         return response
 
 
-def logout(request):
-    response = redirect('login')
-    if "session" in request.COOKIES:
-        session_id = request.COOKIES['session']
-        Sessions.end_session(session_id)
-        response.delete_cookie('session')
-    success(request, "Logout feito com sucesso")
-    return response
+# def logout(request):
+#     response = redirect('login')
+#     if "session" in request.COOKIES:
+#         session_id = request.COOKIES['session']
+#         Sessions.end_session(session_id)
+#         response.delete_cookie('session')
+#     success(request, "Logout feito com sucesso")
+#     return response
 
 #status 0=CANCELADO
 #status 1=ABERTO
@@ -80,25 +84,25 @@ def logout(request):
 
 
 
-def dashboard(request):
-    auth_user = Sessions.validate_auth(request)
-    if auth_user is None:
-        error(request, "Você precisa logar primeiro")
-        return redirect('login')
-    if auth_user['role'] == 'doctor':
-        sequences = Sequences.find_sequences(None, auth_user['username'])
-    else:
-        sequences = Sequences.find_sequences(None)
-    users_count = 0
-    users = Users.find_users(None)
-    if users is not None:
-        users_count = users.count()
-    patients_count = 0
-    patients = Patients.find_patients(None)
-    if patients is not None:
-        patients_count = patients.count()
-    sequences_done = Sequences.report_sequences(None)
-    total = Sequences.report_sequences_total(None)
-    return render(request, 'auth/dashboard.html',
-                  {'auth_user': auth_user, 'users': users_count, 'patients': patients_count, 'sequences': sequences,
-                   'total': total,'sequences_done':sequences_done})
+# def dashboard(request):
+#     auth_user = Sessions.validate_auth(request)
+#     if auth_user is None:
+#         error(request, "Você precisa logar primeiro")
+#         return redirect('login')
+#     if auth_user['role'] == 'doctor':
+#         sequences = Sequences.find_sequences(None, auth_user['username'])
+#     else:
+#         sequences = Sequences.find_sequences(None)
+#     users_count = 0
+#     users = Users.find_users(None)
+#     if users is not None:
+#         users_count = users.count()
+#     patients_count = 0
+#     patients = Patients.find_patients(None)
+#     if patients is not None:
+#         patients_count = patients.count()
+#     sequences_done = Sequences.report_sequences(None)
+#     total = Sequences.report_sequences_total(None)
+#     return render(request, 'auth/dashboard.html',
+#                   {'auth_user': auth_user, 'users': users_count, 'patients': patients_count, 'sequences': sequences,
+#                    'total': total,'sequences_done':sequences_done})
