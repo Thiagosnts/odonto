@@ -48,7 +48,7 @@ def anamnese(request,token=None):
 
     if request.method == 'GET':
 
-        return render(request, 'signup.html', {'questions':questions})
+        return render(request, 'signup.html', {'questions':questions,'token':token})
     else:
         # name = request.POST['name']  
         # email = request.POST['email']  
@@ -61,7 +61,7 @@ def anamnese(request,token=None):
 
         dados = montarDados(request.POST)
 
-        return render(request, 'signup.html', {'questions':questions})
+        return redirect('anamnese', token=token)
 
 
         # if form is not True:
