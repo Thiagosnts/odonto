@@ -17,10 +17,21 @@ Sequences = Sequence()
 Questions = Question()
 
 
+def montarDados(post):
+    dict = post.dict()
+    list = []
+
+    for chave in dict.keys():
+        list.append({chave:dict[chave]})    
+    list.remove(list[0])   
+
+    return str(list)
 
 def anamnese(request,token=None):
-    if(token!="admin"):
+    if(token!='eyJhY2Vzc28iOiJnYXJhbnRpZG8iLCJwYWNpZW50ZSI6IlRoaWFnbyJ9'):
         return render(request, 'erro.html')
+        
+    paciente = str(token)
 
     questions = Questions.list_questions()
 
@@ -32,27 +43,32 @@ def anamnese(request,token=None):
 
         return render(request, 'signup.html', {'questions':questions})
     else:
-        name = request.POST['name']  
-        email = request.POST['email']  
-        phone = request.POST['phone'] 
-        role = request.POST['role']  
-        username = request.POST['username'] 
-        password = request.POST['password']  
+        # name = request.POST['name']  
+        # email = request.POST['email']  
+        # phone = request.POST['phone'] 
+        # role = request.POST['role']  
+        # username = request.POST['username'] 
+        # password = request.POST['password']  
+
         form = validate_form(request.POST)
-        if form is not True:
-            error(request, "Tem algum problema em suas informações")
-            return render(request, 'auth/signup.html',
-                          {'name': name, 'email': email, 'phone': phone, 'role': role,
-                           'username': username})
-        result = Users.add_user(name, email, phone, role, username, password)
-        if result is not True:
-            error(request, result)
-            return render(request, 'auth/signup.html',
-                          {'name': name, 'email': email, 'phone': phone, 'role': role,
-                           'username': username})
-        success(request, "Registrado com sucesso")
-        response = redirect('login')
-        return response
+
+        dados = montarDados(request.POST)
+
+        return render(request, 'signup.html', {'questions':questions})
+
+
+        # if form is not True:
+        #     error(request, "Tem algum problema em suas informações")
+        #     return render(request, 'auth/signup.html',
+        #                   {'name': name, 'email': email, 'phone': phone, 'role': role,
+        #                    'username': username})
+        # result = Users.add_user(name, email, phone, role, username, password)
+        # if result is not True:
+        #     error(request, result)
+        #     return render(request, 'auth/signup.html')
+        # success(request, "Registrado com sucesso")
+        # response = redirect('login')
+        # return response
 
 
 # def login(request, token):

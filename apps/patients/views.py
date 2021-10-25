@@ -212,7 +212,7 @@ def delete_question(request,dni, code):
         return redirect('login')
     result = Questions.delete_question(code)
     # Sequences.cancel_sequences_from_patient(dni)
-    response = redirect('patients')
+    response = redirect('check_patient', dni=dni)
     if result is not True:
         error(request, result)
         return response

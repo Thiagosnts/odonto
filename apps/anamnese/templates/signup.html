@@ -37,7 +37,7 @@
         <div class="content-wrap">
             <h2 class="text-center">Anamnese</h2>
 
-            <form class="form-horizontal" role="form" action="{% url 'signup' %}" method="post">
+            <form class="form-horizontal" role="form" action="{% url 'anamnese' 'admin'%}" method="post">
 
                 {% csrf_token %}
 
@@ -49,7 +49,7 @@
 
                 <div>
                     <h4>{{question.question}}</h4>
-                    <input type="text" class="form-control" name="name" id="name" placeholder="" value="{{ name }}"
+                    <input type="text" class="form-control" name="{{question.code}}" id="{{question.code}}" placeholder="" value="{{ name }}"
                         required>
                 </div>
 
