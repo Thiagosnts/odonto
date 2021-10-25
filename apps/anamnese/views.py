@@ -1,6 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.messages import error, success
+import json
+from datetime import datetime
+
 
 from apps.anamnese.models import Question
 from apps.auth.models import Session
@@ -8,7 +11,7 @@ from apps.users.models import User
 from apps.patients.models import Patient
 from apps.treatment_sequences.models import Sequence
 from dentaladmin.utils import validate_form
-
+from dentaladmin import utils
 
 Sessions = Session()
 Users = User()
@@ -31,7 +34,11 @@ def anamnese(request,token=None):
     if(token!='eyJhY2Vzc28iOiJnYXJhbnRpZG8iLCJwYWNpZW50ZSI6IlRoaWFnbyJ9'):
         return render(request, 'erro.html')
         
-    paciente = str(token)
+    dados = json.loads(utils.decode_ToBase64(token))
+    tempoExpiração = utils.get_interval_date(datetime.now(),"25/10/2021 13:58:18")
+
+    if(tempoExpiração>=60):
+        return render(request, 'erro.html')
 
     questions = Questions.list_questions()
 

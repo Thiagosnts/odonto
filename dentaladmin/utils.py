@@ -1,5 +1,5 @@
 # List of common connections and functions
-import datetime
+from datetime import datetime
 import pymongo
 import hashlib
 import random
@@ -65,3 +65,13 @@ def upload_file(pic, file):
 
 def get_today_date(date_format="%m/%d/%Y"):
     return datetime.date.today().strftime(date_format)
+
+def get_interval_date(dataAtual, date="25/10/2021 13:58:18"):
+
+    fimData = str(dataAtual.strftime("%d/%m/%Y %H:%M:%S"))
+
+    inicio = datetime.strptime(date, "%d/%m/%Y %H:%M:%S")
+    fim = datetime.strptime(fimData, "%d/%m/%Y %H:%M:%S")
+
+    expirado = fim - inicio
+    return expirado.seconds/60 
