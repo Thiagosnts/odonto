@@ -4,7 +4,7 @@ import pymongo
 import hashlib
 import random
 import string
-
+import base64
 
 client = pymongo.MongoClient('localhost', 27017)
 database_connection = client.dentaladmin
@@ -15,6 +15,15 @@ def make_pw_hash(password):
     password = password.encode('utf-8')
     return hashlib.sha256(password).hexdigest()
 
+def encode_ToBase64(dado): 
+    message_bytes = dado.encode('ascii')
+    base64_bytes = base64.b64encode(message_bytes)
+    return base64_bytes.decode('ascii')
+
+def decode_ToBase64(dado): 
+    base64_bytes = dado.encode('ascii')
+    message_bytes = base64.b64decode(base64_bytes)
+    return message_bytes.decode('ascii')
 
 def get_random_str(num_chars):
     random_string = ""
