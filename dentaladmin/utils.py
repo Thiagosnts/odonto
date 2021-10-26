@@ -21,9 +21,10 @@ def encode_ToBase64(dado):
     return base64_bytes.decode('ascii')
 
 def decode_ToBase64(dado): 
-    dado=dado+"=="
+    dado+="=="
     message_bytes = base64.b64decode(dado.encode('ascii'))
     message = message_bytes.decode('ascii')
+
     return message.replace("'","\"")
 
 def get_random_str(num_chars):
