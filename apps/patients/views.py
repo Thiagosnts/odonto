@@ -2,6 +2,10 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
 from django.contrib.messages import error, success
+from datetime import datetime
+from dentaladmin import utils
+
+
 
 from apps.anamnese.models import Question
 
@@ -115,7 +119,11 @@ def check_patient(request, dni):
             error(request, "Esse paciente não existe")
             return redirect('patients')
         return render(request, 'patients/check.html',
-                      {'auth_user': auth_user, 'patient': patient, 'diagnostics': diagnostics, 'questions':questions})
+            {'auth_user': auth_user, 'patient': patient, 'diagnostics': diagnostics, 'questions':questions})
+    
+    token = gerar_token(dni)
+    
+    return redirect(f'http://localhost:8000/anamnese/{token}')
     # else:
     #     # notes = request.POST['notes']
     #     # question = request.POST['question']
@@ -218,3 +226,10 @@ def delete_question(request,dni, code):
         return response
     success(request, "Pergunta deletada com sucesso")
     return response
+
+def gerar_token(dni):
+    dataAtual = str(datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+    corpo = {'acesso': 'garantido', 'data_criacao': dataAtual, 'paciente': dni}
+    token = utils.encode_ToBase64(str(corpo)).replace("=", "")
+    return token
+    
