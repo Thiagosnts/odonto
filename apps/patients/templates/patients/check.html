@@ -243,11 +243,12 @@
                             <!-- <h4 class="name">ANAMNESE</h4> -->
                             <!-- <p>Adicione uma observação sobre este usuário para manter um histórico de seus prontuários.</p> -->
                             <label for="notes"></label>
-                            <span><b>Voce Fuma?</b> <br>Não</span>
+                            {% for item in anamnese.lista %}
+                            <span><b>{{item|first}}</b> <br>{{item|last}}</span>
                             <br>
-                            <span><b>Pratica exercícios?</b> <br>Não</span>
 
-                            <textarea name="notes" id="notes" required>{{ patient.notes }}</textarea>
+                            {% endfor %}
+                            <!-- <textarea name="notes" id="notes" required>{{ patient.notes }}</textarea> -->
                             <div class="row justify-content-center">
                                 <input href="" type="submit" class="btn-glow primary" value="Atualizar Anamnese">
                                 <input type="submit" class="ml-4 btn-glow primary" value="Enviar para Paciente">

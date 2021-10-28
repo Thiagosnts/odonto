@@ -3,6 +3,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
 from django.contrib.messages import error, success
 from datetime import datetime
+from apps.anamnese.views import anamnese
 from dentaladmin import utils
 
 
@@ -115,11 +116,14 @@ def check_patient(request, dni):
         patient = Patients.find_patient(dni)
         diagnostics = Patients.find_diagnostics(dni)
         questions = Questions.list_questions()
+        
+        anamnese = utils.toJson(patient.get("notes"))
+
         if patient is None:
             error(request, "Esse paciente não existe")
             return redirect('patients')
         return render(request, 'patients/check.html',
-            {'auth_user': auth_user, 'patient': patient, 'diagnostics': diagnostics, 'questions':questions})
+            {'auth_user': auth_user, 'patient': patient, 'diagnostics': diagnostics, 'questions':questions, 'anamnese':anamnese})
     
     token = gerar_token(dni)
     

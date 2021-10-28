@@ -5,6 +5,7 @@ import hashlib
 import random
 import string
 import base64
+import json
 
 client = pymongo.MongoClient('localhost', 27017)
 database_connection = client.dentaladmin
@@ -77,3 +78,8 @@ def get_interval_date(dataAtual, date="25/10/2021 13:58:18"):
 
     expirado = fim - inicio
     return expirado.seconds/60 
+
+def toJson(string):
+    return json.loads(string.replace("'","\""))
+
+   

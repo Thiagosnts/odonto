@@ -25,10 +25,13 @@ def montarDados(post):
     list = []
 
     for chave in dict.keys():
-        list.append({chave:dict[chave]})    
+        list.append([chave,dict[chave]])    
     list.remove(list[0])   
 
-    return str(list)
+    lista = {"lista":list}
+
+
+    return str(lista)
 
 def anamnese(request,token=None):
     # if(token!='eyJhY2Vzc28iOiAiZ2FyYW50aWRvIiwiZGF0YV9jcmlhY2FvIjoiMjUvMTAvMjAyMSAxMzo1ODoxOCIsInBhY2llbnRlIjogIlRoaWFnbyJ9'):
