@@ -157,7 +157,13 @@
         <nav id="sidebar">
             <div class="sidebar-header fundo-img">
                 <!-- <h3>Lead Odonto+</h3> -->
+                {% if auth_user.pic != None %}
+                <img class="avatar-img" src="{% static auth_user.pic %}">
+                {% else %}
                 <img class="avatar-img" src="https://img.elo7.com.br/product/original/24CC0ED/caricatura-rosto.jpg">
+                {% endif %}
+
+
                 {% if auth_user.role == 'office' %}
                 <h5 class="titulo-avatar"><b class="titulo-forte">Office </b> {{ auth_user.username }}</h5>
                 {% endif %}

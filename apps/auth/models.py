@@ -27,9 +27,9 @@ class Session:
         self.db = database
         self.sessions = self.db.sessions
 
-    def start_session(self, username, role):
+    def start_session(self, username, role, photo=None):
         session_id = utils.get_random_str(32)
-        session = {'username': username, 'role': role, '_id': session_id}
+        session = {'username': username, 'role': role, '_id': session_id, 'pic': photo}
         try:
             self.sessions.insert_one(session)
         except errors.OperationFailure:
