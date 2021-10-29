@@ -34,13 +34,16 @@ def montarDados(post):
     return str(lista)
 
 def anamnese(request,token=None):
-    # if(token!='eyJhY2Vzc28iOiAiZ2FyYW50aWRvIiwiZGF0YV9jcmlhY2FvIjoiMjUvMTAvMjAyMSAxMzo1ODoxOCIsInBhY2llbnRlIjogIlRoaWFnbyJ9'):
-    #     return render(request, 'erro.html')
-        
-    dados = json.loads(utils.decode_ToBase64(token))
-    tempoExpiração = utils.get_interval_date(datetime.now(),dados.get('data_criacao'))
+    tempoExpiracao=None;
+    falha=False;
 
-    if(tempoExpiração>=60):
+    try:
+        dados = json.loads(utils.decode_ToBase64(token))
+        tempoExpiracao = utils.get_interval_date(datetime.now(),dados.get('data_criacao'))
+    except:
+        successo=True;   
+
+    if(tempoExpiracao>=60 or successo):
         return render(request, 'erro.html')
 
     questions = Questions.list_questions()
