@@ -77,8 +77,10 @@
                                     <a href="mailto:{{ user.email }}">{{ user.email }}</a>
                                 </td>
                                 <td>
+                                    <i class="icon-edit-sign"></i>
                                     <a href="{% url 'edit_user' user.username %}">Editar</a>
-                                    &nbsp;
+                                    <br>
+                                    <i class="icon-trash"></i>
                                     <a href="{% url 'delete_user' user.username %}">Deletar</a>
                                 </td>
                             </tr>

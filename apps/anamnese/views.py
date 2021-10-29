@@ -41,9 +41,9 @@ def anamnese(request,token=None):
         dados = json.loads(utils.decode_ToBase64(token))
         tempoExpiracao = utils.get_interval_date(datetime.now(),dados.get('data_criacao'))
     except:
-        successo=True;   
+        falha=True;   
 
-    if(tempoExpiracao>=60 or successo):
+    if(falha or tempoExpiracao>=60):
         return render(request, 'erro.html')
 
     questions = Questions.list_questions()

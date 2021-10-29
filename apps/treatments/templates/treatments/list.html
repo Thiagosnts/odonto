@@ -71,8 +71,10 @@
                             {% if treatment.status == 1 %}<span class="label label-success">Ativo</span>{% endif %}
                         </td>
                         <td>
+                            <i class="icon-edit-sign"></i>
                             <a href="{% url 'edit_treatment' treatment.code %}">Editar</a>
-                            &nbsp;
+                            <br>
+                            <i class="icon-trash"></i>
                             <a href="{% url 'delete_treatment' treatment.code %}">Deletar</a>
                             &nbsp;
                         </td>
