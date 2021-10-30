@@ -29,7 +29,10 @@ class Treatment:
             return None
         return treatment
 
-    def add_treatment(self, code, name, price, status=1):
+    def add_treatment(self, name, price, status=1):
+        count = self.treatments.find({}).count()
+        code = count + 1
+
         treatment_exist = self.treatments.find_one({'code': code, 'status': status})
         if treatment_exist:
             return "Oops, código já utilizado"

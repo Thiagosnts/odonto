@@ -46,19 +46,19 @@ def create_treatment(request):
     if request.method == 'GET':
         return render(request, 'treatments/create.html', {'auth_user': auth_user})
     else:
-        code = request.POST['code']
+        # code = request.POST['code']
         name = request.POST['name']
         price = request.POST['price']
         form = validate_form(request.POST)
         if form is not True:
             error(request, "Há um problema com seus dados, favor verificar")
             return render(request, 'treatments/create.html',
-                          {'auth_user': auth_user, 'code': code, 'name': name, 'price': price})
-        result = Treatments.add_treatment(code, name, price)
+                          {'auth_user': auth_user, 'name': name, 'price': price})
+        result = Treatments.add_treatment(name, price)
         if result is not True:
             error(request, result)
             return render(request, 'treatments/create.html',
-                          {'auth_user': auth_user, 'code': code, 'name': name, 'price': price})
+                          {'auth_user': auth_user, 'name': name, 'price': price})
         success(request, "Tratamento registrado com sucesso")
         response = redirect('treatments')
         return response
