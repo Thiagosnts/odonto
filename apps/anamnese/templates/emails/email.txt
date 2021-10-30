@@ -1,0 +1,12 @@
+Olá, {{ patient.name }}
+
+Isso é um espelho para o seu tratamento de código: {{ sequence.code }}
+
+{% for treatment in sequence_treatments %}
+    Data: {{ treatment.date }}
+    Valor tratamento: R$ {{ treatment.treatment_price }}
+    Quantidade: x{{ treatment.treatment_quantity }}
+    Subtotal: R$ {{ treatment.subtotal }}
+{% endfor %}
+
+Total: R$ {{ sequence.total }}

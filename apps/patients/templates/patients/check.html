@@ -16,8 +16,32 @@
 
 {% block content %}
 <style>
+    .nav-link {
+        border-radius: 0 !important;
+        background: linear-gradient(to bottom, white 0%, #eef0f1 100%);
+        box-shadow: 0px 1px 0px 0px rgb(255 255 255 / 20%) inset, 0px 1px 0px 0px #cccccc;
+        margin-top: 0.6rem;
+        border-left: solid 1px #cccccc;
+        border-right: solid 1px #cccccc;
+    }
+
     .nav-link.active {
-        background-color: #0067ac !important;
+        margin-top: 0;
+        background: linear-gradient(#54b3ff, #0067ac);
+        box-shadow: inset 0px 1px 0px 0px rgb(255 255 255 / 50%);
+        padding-bottom: 0.8rem;
+        padding-top: 0.8rem;
+        box-shadow: 2px 2px 2px rgb(0 0 0 / 45%);
+    }
+
+    .question-table td {
+        width: 100%;
+        padding: 7px 0 7px 7px;
+    }
+
+    tr:nth-child(2n+1) {
+        background-color: #e6e6e6;
+        box-shadow: 0px 1px 0px 0px rgb(255 255 255 / 20%) inset, 0px 1px 0px 0px #cccccc;
     }
 </style>
 
@@ -46,12 +70,16 @@
 
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+            <a class="nav-link active" id="diagnostico" data-toggle="pill" href="#pills-home" role="tab"
                 aria-controls="pills-home" aria-selected="true">Diagnósticos</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+            <a class="nav-link" id="anamnese" data-toggle="pill" href="#pills-profile" role="tab"
                 aria-controls="pills-profile" aria-selected="false">Anamnese</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="anamnese-questoes" data-toggle="pill" href="#pills-question" role="tab"
+                aria-controls="pills-profile" aria-selected="false">Alterar Anamnese</a>
         </li>
 
     </ul>
@@ -59,86 +87,136 @@
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
             <div class="row profile" style="margin-top: 50px; padding: 0 20px;">
                 <div class="">
+
+
                     <form class="form-horizontal" role="form" action="{% url 'create_diagnostic' patient.dni %}"
                         method="post">
                         {% csrf_token %}
                         <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="col-md-1">
-                                        Codigo
-                                    </th>
-                                    <th class="col-md-1">
-                                        <span class="line"></span>
-                                        Situação
-                                    </th>
-                                    <th class="col-md-1">
-                                        <span class="line"></span>
-                                        Data
-                                    </th>
-                                    <th class="col-md-2">
-                                        <span class="line"></span>
-                                        Doutor
-                                    </th>
-                                    <th class="col-md-3">
-                                        <span class="line"></span>
-                                        Dentes
-                                    </th>
-                                    <th class="col-md-3">
-                                        <span class="line"></span>
-                                        Diagnostico
-                                    </th>
-                                    <th class="col-md-1">
-                                        <span class="line"></span>
-                                        Ação
-                                    </th>
-                                </tr>
-                            </thead>
                             <tbody>
-                                {% if diagnostics != None %}
-                                {% for diagnostic in diagnostics %}
-                                <!-- results row -->
-                                <tr class="first">
-                                    <td>
-                                        {{ diagnostic.code }}
-                                    </td>
-                                    <td>
-                                        {% if diagnostic.status == 0 %}
-                                        <span class="label label-info">Pendente</span>
-                                        {% else %}
-                                        <span class="label label-success">Completo</span>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {{ diagnostic.date }}
-                                    </td>
-                                    <td>
-                                        {{ diagnostic.doctor_name }}
-                                    </td>
-                                    <td>
-                                        {{ diagnostic.tooths }}
-                                    </td>
-                                    <td>
-                                        {{ diagnostic.diagnostic }}
-                                    </td>
-                                    <td>
-                                        {% if diagnostic.status == 0 %}
-                                        <a href="{% url 'delete_diagnostic' patient.dni diagnostic.code %}"
-                                            class="btn-flat icon pull-left delete-user" data-toggle="tooltip"
-                                            title="Delete" data-placement="top">
-                                            <i class="icon-trash"></i>
-                                        </a>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                                {% else %}
-                                <tr class="first">
-                                    <td colspan="7">Não há registros.</td>
-                                </tr>
-                                {% endif %}
-                                <!-- new item row -->
+                                
+                                
+                                    <input hidden type="text" class="form-control inline-input" name="status" id="status"
+                                        placeholder="" value="Pendente" readonly>
+                               
+                              
+                                    <input hidden type="text" class="form-control inline-input" name="date" id="date"
+                                        placeholder="" value="{% now " m/d/Y" %}" readonly required>
+                               
+                              
+                                    <input hidden type="text" class="form-control inline-input" name="doctor" id="doctor"
+                                        placeholder="" value="{{ auth_user.username }}" readonly required>
+                          
+                               
+
                                 <tr>
+                                    <td colspan="2"><span>Dentes</span></td>
+                                    <td colspan="2"><input type="text" class="form-control inline-input" name="tooths"
+                                            id="tooths" placeholder="Dentes" required=""></td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2"><span>Diagnóstico</span></td>
+                                    <td colspan="2"><input type="text" class="form-control inline-input"
+                                            name="diagnostic" id="diagnostic" placeholder="Diagnostico" required="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="submit" class="btn-glow primary" value="Adicionar Diagnostico">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+
+
+
+                    <!-- <form class="form-horizontal" role="form" action="{% url 'create_diagnostic' patient.dni %}"
+                        method="post">
+                        {% csrf_token %} -->
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="col-md-1">
+                                    Codigo
+                                </th>
+                                <th class="col-md-1">
+                                    <span class="line"></span>
+                                    Situação
+                                </th>
+                                <th class="col-md-1">
+                                    <span class="line"></span>
+                                    Data
+                                </th>
+                                <th class="col-md-2">
+                                    <span class="line"></span>
+                                    Doutor
+                                </th>
+                                <th class="col-md-3">
+                                    <span class="line"></span>
+                                    Dentes
+                                </th>
+                                <th class="col-md-3">
+                                    <span class="line"></span>
+                                    Diagnostico
+                                </th>
+                                <th class="col-md-1">
+                                    <span class="line"></span>
+                                    Ação
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if diagnostics != None %}
+                            {% for diagnostic in diagnostics %}
+                            <!-- results row -->
+                            <tr class="first">
+                                <td>
+                                    {{ diagnostic.code }}
+                                </td>
+                                <td>
+                                    {% if diagnostic.status == 0 %}
+                                    <span class="label label-info">Pendente</span>
+                                    {% else %}
+                                    <span class="label label-success">Completo</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ diagnostic.date }}
+                                </td>
+                                <td>
+                                    {{ diagnostic.doctor_name }}
+                                </td>
+                                <td>
+                                    {{ diagnostic.tooths }}
+                                </td>
+                                <td>
+                                    {{ diagnostic.diagnostic }}
+                                </td>
+                                <td>
+                                    {% if diagnostic.status == 0 %}
+                                    <a href="{% url 'delete_diagnostic' patient.dni diagnostic.code %}"
+                                        class="btn-flat icon pull-left delete-user" data-toggle="tooltip" title="Delete"
+                                        data-placement="top">
+                                        <i class="icon-trash"></i>
+                                    </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                            <tr class="first">
+                                <td colspan="7">Não há registros.</td>
+                            </tr>
+                            {% endif %}
+                            <!-- new item row -->
+                            <!-- <tr>
                                     <td>
 
                                     </td>
@@ -165,10 +243,10 @@
                                     <td>
                                         <input type="submit" class="btn-glow primary" value="Adicionar Diagnostico">
                                     </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
+                                </tr> -->
+                        </tbody>
+                    </table>
+                    <!--</form>-->
                 </div>
             </div>
         </div>
@@ -184,14 +262,17 @@
                             <!-- <h4 class="name">ANAMNESE</h4> -->
                             <!-- <p>Adicione uma observação sobre este usuário para manter um histórico de seus prontuários.</p> -->
                             <label for="notes"></label>
-                            <span><b>Voce Fuma?</b> <br>Não</span>
+                            {% for item in anamnese.lista %}
+                            <span><b>{{item|first}}</b> <br>{{item|last}}</span>
                             <br>
-                            <span><b>Pratica exercícios?</b> <br>Não</span>
 
-                            <textarea hidden name="notes" id="notes" required>{{ patient.notes }}</textarea>
+                            {% endfor %}
+                            <!-- <textarea name="notes" id="notes" required>{{ patient.notes }}</textarea> -->
                             <div class="row justify-content-center">
-                                <input type="submit" class="btn-glow primary" value="Atualizar">
-                                <input type="submit" class="ml-4 btn-glow primary" value="Enviar para Paciente">
+                                <input id="email" hidden name="email" value="preencher" type="text">
+                                <input href="" type="submit" class="btn-glow primary" value="Atualizar Anamnese">
+                                <input onclick="email.value='enviar'" type="submit" class="ml-4 btn-glow primary"
+                                    value="Enviar para Paciente">
                             </div>
                         </div>
                     </form>
@@ -215,11 +296,72 @@
                 </div> -->
             </div>
         </div>
+
+        <div class="tab-pane fade" id="pills-question" role="tabpanel" aria-labelledby="pills-question-tab">
+            <div class="row profile">
+                <!-- bio, new note & orders column -->
+                <div class="col-md bio">
+                    <form class="form-horizontal" role="form" action="{% url 'create_question' patient.dni %}"
+                        method="post">
+                        {% csrf_token %}
+                        <!-- new comment form -->
+                        <div class="col-md-12 section comment" style="margin-top: 0; margin-bottom: 100px;">
+                            <!-- <h4 class="name">ANAMNESE</h4> -->
+                            <!-- <p>Adicione uma observação sobre este usuário para manter um histórico de seus prontuários.</p> -->
+                            <label for="notes"></label>
+                            <span><b>Adicionar Perguntas</b> </span>
+                            <input type="text" class="form-control inline-input" name="question" id="question">
+
+
+                            <!-- <textarea hidden name="notes" id="notes" required>{{ patient.notes }}</textarea> -->
+                            <div class="row justify-content-center">
+                                <input type="submit" class="btn-glow primary mt-3 mb-3" value="Adicionar">
+                            </div>
+
+
+                            <table class="question-table">
+                                {% if questions != None %}
+
+                                {% for question in questions %}
+
+                                <tr>
+                                    <td>
+                                        {{question.question}}</td>
+                                    <td><a class="btn-glow"
+                                            href="{% url 'delete_question' patient.dni question.code %}"><i
+                                                class="icon-trash"></i></a></td>
+                                </tr>
+
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td class="first"> Não há registros</td>
+                                </tr>
+                                {% endif %}
+                            </table>
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
-    <div class="row" style="margin-top: 40px;">
+    <div class="row justify-content-center">
         <a href="{% url 'patients' %}" class="btn-flat success pull-left">Voltar</a>
     </div>
 
 </div>
+<!-- <script>
+    questions = []
+    {% if questions != None %}
+        {% for question in questions %}
+        questions.push('{{question.question}}')
+        {% endfor %}
+    {% endif %}
+</script> -->
+
+
 {% endblock %}

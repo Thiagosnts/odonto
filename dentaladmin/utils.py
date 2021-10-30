@@ -1,10 +1,11 @@
 # List of common connections and functions
-import datetime
+from datetime import datetime
 import pymongo
 import hashlib
 import random
 import string
-
+import base64
+import json
 
 client = pymongo.MongoClient('localhost', 27017)
 database_connection = client.dentaladmin
@@ -15,6 +16,17 @@ def make_pw_hash(password):
     password = password.encode('utf-8')
     return hashlib.sha256(password).hexdigest()
 
+def encode_ToBase64(dado): 
+    message_bytes = dado.encode('ascii')
+    base64_bytes = base64.b64encode(message_bytes)
+    return base64_bytes.decode('ascii')
+
+def decode_ToBase64(dado): 
+    dado+="=="
+    message_bytes = base64.b64decode(dado.encode('ascii'))
+    message = message_bytes.decode('ascii')
+
+    return message.replace("'","\"")
 
 def get_random_str(num_chars):
     random_string = ""
@@ -56,3 +68,18 @@ def upload_file(pic, file):
 
 def get_today_date(date_format="%m/%d/%Y"):
     return datetime.date.today().strftime(date_format)
+
+def get_interval_date(dataAtual, date="25/10/2021 13:58:18"):
+
+    fimData = str(dataAtual.strftime("%d/%m/%Y %H:%M:%S"))
+
+    inicio = datetime.strptime(date, "%d/%m/%Y %H:%M:%S")
+    fim = datetime.strptime(fimData, "%d/%m/%Y %H:%M:%S")
+
+    expirado = fim - inicio
+    return expirado.seconds/60 
+
+def toJson(string):
+    return json.loads(string.replace("'","\""))
+
+   

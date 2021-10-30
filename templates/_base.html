@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="pt-br">
 
-
+    
     <title>Lead Odonto | {% block title %} {% endblock %}</title>
 
 
@@ -113,17 +113,22 @@
         }
 
         thead tr {
-            background-color: #0067ac !important;
+            background: -webkit-linear-gradient(top, #54b3ff 0%, #0078d9 100%);
+            background: linear-gradient(#54b3ff, #0067ac);
+            box-shadow: inset 0px 1px 0px 0px rgb(255 255 255 / 50%);
             color: white;
         }
 
         .table.table-hover tr:nth-child(2n+1) {
             background-color: #e6e6e6;
         }
-
+/* 
         .table-hover tbody tr:hover {
             background-color: mediumspringgreen !important;
-        }
+        } */
+
+        .table-hover a:hover {
+        border-bottom: solid 2px green;}
 
         .titulo-avatar {
             text-align: center;
@@ -136,7 +141,7 @@
     </style>
 
     {% load static %}
-
+    <link rel="shortcut icon" href="{% static 'img/dente.png' %}" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
@@ -155,7 +160,13 @@
         <nav id="sidebar">
             <div class="sidebar-header fundo-img">
                 <!-- <h3>Lead Odonto+</h3> -->
+                {% if auth_user.pic != None %}
+                <img class="avatar-img" src="{% static auth_user.pic %}">
+                {% else %}
                 <img class="avatar-img" src="https://img.elo7.com.br/product/original/24CC0ED/caricatura-rosto.jpg">
+                {% endif %}
+
+
                 {% if auth_user.role == 'office' %}
                 <h5 class="titulo-avatar"><b class="titulo-forte">Office </b> {{ auth_user.username }}</h5>
                 {% endif %}

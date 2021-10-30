@@ -135,7 +135,7 @@
             </script>
 
             <script>
-                var tipoUsuario = JSON.parse(document.getElementById("tipo_usuario").innerHTML.replaceAll("'", "\""))
+                // var tipoUsuario = JSON.parse(document.getElementById("tipo_usuario").innerHTML.replaceAll("'", "\""))
                 var dados = document.getElementById('dados').innerHTML
 
                 dados = dados.replaceAll("ObjectId(", "")
@@ -302,7 +302,7 @@
                     padding: 1px 10px 1px 10px;
                     margin-bottom: 7px;
                     box-shadow: 2px 2px 4px rgb(0 0 0 / 40%);
-                    border-top: solid 3px #8500ff;
+                    border-top: solid 3px #8500ff!important;
                 }
 
                 .fc-event-title {

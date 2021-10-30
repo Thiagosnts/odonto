@@ -14,23 +14,19 @@
 
 {% block content %}
     <div id="pad-wrapper" class="users-list">
+        <h3 class="text-center p-3 badge badge-secondary">Usuários</h3>
         <div class="row header">
-
-            
-
-
-
-
-            <h3>Usuários</h3>
             <div class="col-md-10 col-sm-12 col-xs-12 pull-right">
-                <form class="form-horizontal" role="form" action="{% url 'users' %}" method="get">
+                <form class="mt-4 mb-4 form-horizontal" role="form" action="{% url 'users' %}" method="get">
                     {% csrf_token %}
                     <input type="text" class="col-md-5 search" name="search" placeholder="Digite um nome de usuário...">
+                    <i style="font-size: 30px;vertical-align: middle;padding: 8px;color: #32373dc4;" class="icon-search"></i>
+                    <a href="{% url 'create_user' %}" class="btn-flat success pull-right">
+                        <span>&#43;</span>
+                        NOVO USUARIO
+                    </a>
                 </form>
-                <a href="{% url 'create_user' %}" class="btn-flat success pull-right">
-                    <span>&#43;</span>
-                    NOVO USUARIO
-                </a>
+
             </div>
         </div>
         <!-- Users table -->
@@ -81,8 +77,10 @@
                                     <a href="mailto:{{ user.email }}">{{ user.email }}</a>
                                 </td>
                                 <td>
+                                    <i class="icon-edit-sign"></i>
                                     <a href="{% url 'edit_user' user.username %}">Editar</a>
-                                    &nbsp;
+                                    <br>
+                                    <i class="icon-trash"></i>
                                     <a href="{% url 'delete_user' user.username %}">Deletar</a>
                                 </td>
                             </tr>

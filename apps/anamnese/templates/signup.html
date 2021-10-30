@@ -1,0 +1,92 @@
+{% extends 'auth/_base.html' %}
+
+<!-- Static files django label -->
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/compiled/signup.css' %}" type="text/css" media="screen" />
+{% endblock %}
+
+{% block title %} Cadastro {% endblock %}
+
+{% block content %}
+
+<div class="header">
+    <img class="logo" src="{% static 'img/logo.jpeg' %}" alt="logo" />
+</div>
+
+<div class="row">
+    {% for message in messages %}
+    {% if 'success' in message.tags %}
+    <div class="col-lg-4 col-lg-offset-4 alert alert-success text-center">
+        <i class="icon-ok-sign"></i>
+        {{ message }}
+    </div>
+    {% endif %}
+    {% if 'error' in message.tags %}
+    <div class="col-lg-4 col-lg-offset-4 alert alert-warning text-center">
+        <i class="icon-warning-sign"></i>
+        {{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+<div class="container">
+    <div class="jumbotron">
+        <div class="content-wrap">
+            <h2 class="text-center">Anamnese</h2>
+            <form class="form-horizontal" role="form" action="{% url 'anamnese' token %}" method="post">
+
+                {% csrf_token %}
+
+
+
+                {% if questions != None %}
+
+                {% for question in questions %}
+
+                <div>
+                    <h4>{{question.question}}</h4>
+                    <input type="text" class="form-control" name="{{question.question}}" id="{{question.code}}" placeholder="" value="{{ name }}"
+                        required>
+                </div>
+
+                {% endfor %}
+                {% else %}
+                <h4> Não há registros</h4>
+
+                {% endif %}
+
+
+
+
+                <!-- <input type="hidden" class="form-control" name="role" id="role" value="admin" required>
+
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Nome" value="{{ name }}" required>
+                    <input type="text" class="form-control" name="phone" id="phone" pattern="[0-9]+" placeholder="Telefone" value="{{ phone }}" required>
+                    <input type="text" class="form-control" name="email" id="email" placeholder="Email" value="{{ email }}" required>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Usuário" value="{{ username }}" required>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Senha" required>
+                    <input type="password" class="form-control" name="password2" id="password2" placeholder="Repetir Senha" required> -->
+
+
+
+
+
+                <div class="action text-center">
+                    <button style="margin-top:20px" type="submit" class="btn-glow primary signup">Enviar</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- <div class="already">
+            <p>Já possui conta?</p>
+            <a href="{% url 'login' %}">Login</a>
+        </div> -->
+</div>
+
+{% endblock %}

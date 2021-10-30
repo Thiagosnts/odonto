@@ -9,11 +9,11 @@
     <style>a.name {
         margin: 0px 0 0 0!important;
     }
-    .col-md-5{
+    /* .col-md-5{
     border-color: grey;
     border-radius: 18px!important}
     .titulo{
-    margin-left: 23px;}
+    margin-left: 23px;} */
 
 
     </style>
@@ -25,19 +25,20 @@
 
 {% block content %}
     <div id="pad-wrapper" class="users-list">
+        <h3 class="text-center p-3  badge badge-secondary">Pacientes</h3>
         <div class="row header">
-            <h3 class="titulo">Pacientes</h3>
             <div class="col-md-10 col-sm-12 col-xs-12 pull-right">
-                <form class="form-horizontal" role="form" action="{% url 'patients' %}" method="get">
+                <form class="mt-4 mb-4 form-horizontal" role="form" action="{% url 'patients' %}" method="get">
                     {% csrf_token %}
                     <input type="text" class="col-md-5 search" name="search" placeholder="Digite o nome do Paciente...">
-                </form>
-                {% if auth_user.role == 'admin' or auth_user.role == 'office'  %}
+                    <i style="font-size: 30px;vertical-align: middle;padding: 8px;color: #32373dc4;" class="icon-search"></i>
+                          {% if auth_user.role == 'admin' or auth_user.role == 'office'  %}
                     <a href="{% url 'create_patient' %}" class="btn-flat success pull-right">
                         <span>&#43;</span>
                         NOVO PACIENTE
                     </a>
                 {% endif %}
+                </form>
             </div>
         </div>
         <!-- Patients table -->

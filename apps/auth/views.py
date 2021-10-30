@@ -55,7 +55,7 @@ def login(request):
         if user is None:
             error(request, "Erro de autenticação de usuário")
             return redirect('login')
-        session_id = Sessions.start_session(user["username"], user["role"])
+        session_id = Sessions.start_session(user["username"], user["role"],user["pic"])
         response = redirect('/')
         response.set_cookie(key="session", value=session_id)
         success(request,None)

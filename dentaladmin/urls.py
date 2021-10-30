@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 
 from apps.auth import views as auth_views
+from apps.anamnese import views as anamnese_views
 from apps.users import views as users_views
 from apps.patients import views as patients_views
 from apps.treatments import views as treatments_views
@@ -61,4 +62,14 @@ urlpatterns = [
     # Reports
     url(r'^reports_total/$', reports_views.total, name='reports_total'),
     url(r'^reports_payment/$', reports_views.payment, name='reports_payment'),
+    # Anamnese
+    url(r'^anamnese/(?P<token>\w+)/$', anamnese_views.anamnese, name='anamnese'),
+    # url(r'^anamnese/$', treatments_views.index, name='treatments'),
+    url(r'^patients/check/(?P<dni>\d+)/question/create/$', patients_views.create_question,
+        name='create_question'),
+    # url(r'^anamnese/edit/(?P<code>\w+)/$', treatments_views.edit_treatment, name='edit_treatment'),
+    # url(r'^patients/check/(?P<code>\w+)/$', treatments_views.delete_treatment, name='delete_treatment'),
+    url(r'^patients/check/(?P<dni>\d+)/question/delete/(?P<code>\d+)/$', patients_views.delete_question,
+        name='delete_question'),
+
 ]
