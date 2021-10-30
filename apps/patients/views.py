@@ -190,7 +190,7 @@ def check_patient(request, dni):
     #     #     success(request, "Prontuário atualizado com sucesso")
     else:
         invoice_anamnese(request, dni, url)
-        # success(request, "Anamnese enviada para o email do Paciente")
+        success(request, "Anamnese enviada para o email do Paciente")
         return redirect('check_patient', dni=dni)
 
 
