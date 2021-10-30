@@ -89,115 +89,134 @@
                 <div class="">
 
 
-                    <table class="table table-hover">
-                        <tbody>
-
-                            <tr>
-                                <td colspan="2"><span>Dentes</span></td>
-                                <td colspan="2"><input type="text" class="form-control inline-input" name="tooths"
-                                        id="tooths" placeholder="Dentes" required=""></td>
-                            </tr>
-
-                            <tr>
-                                <td colspan="2"><span>Diagnóstico</span></td>
-                                <td colspan="2"><input type="text" class="form-control inline-input" name="diagnostic"
-                                        id="diagnostic" placeholder="Diagnostico" required=""></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="submit" class="btn-glow primary" value="Adicionar Diagnostico">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    &nbsp;
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-
-
                     <form class="form-horizontal" role="form" action="{% url 'create_diagnostic' patient.dni %}"
                         method="post">
                         {% csrf_token %}
                         <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="col-md-1">
-                                        Codigo
-                                    </th>
-                                    <th class="col-md-1">
-                                        <span class="line"></span>
-                                        Situação
-                                    </th>
-                                    <th class="col-md-1">
-                                        <span class="line"></span>
-                                        Data
-                                    </th>
-                                    <th class="col-md-2">
-                                        <span class="line"></span>
-                                        Doutor
-                                    </th>
-                                    <th class="col-md-3">
-                                        <span class="line"></span>
-                                        Dentes
-                                    </th>
-                                    <th class="col-md-3">
-                                        <span class="line"></span>
-                                        Diagnostico
-                                    </th>
-                                    <th class="col-md-1">
-                                        <span class="line"></span>
-                                        Ação
-                                    </th>
-                                </tr>
-                            </thead>
                             <tbody>
-                                {% if diagnostics != None %}
-                                {% for diagnostic in diagnostics %}
-                                <!-- results row -->
-                                <tr class="first">
-                                    <td>
-                                        {{ diagnostic.code }}
-                                    </td>
-                                    <td>
-                                        {% if diagnostic.status == 0 %}
-                                        <span class="label label-info">Pendente</span>
-                                        {% else %}
-                                        <span class="label label-success">Completo</span>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {{ diagnostic.date }}
-                                    </td>
-                                    <td>
-                                        {{ diagnostic.doctor_name }}
-                                    </td>
-                                    <td>
-                                        {{ diagnostic.tooths }}
-                                    </td>
-                                    <td>
-                                        {{ diagnostic.diagnostic }}
-                                    </td>
-                                    <td>
-                                        {% if diagnostic.status == 0 %}
-                                        <a href="{% url 'delete_diagnostic' patient.dni diagnostic.code %}"
-                                            class="btn-flat icon pull-left delete-user" data-toggle="tooltip"
-                                            title="Delete" data-placement="top">
-                                            <i class="icon-trash"></i>
-                                        </a>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                                {% else %}
-                                <tr class="first">
-                                    <td colspan="7">Não há registros.</td>
-                                </tr>
-                                {% endif %}
-                                <!-- new item row -->
+                                
+                                
+                                    <input hidden type="text" class="form-control inline-input" name="status" id="status"
+                                        placeholder="" value="Pendente" readonly>
+                               
+                              
+                                    <input hidden type="text" class="form-control inline-input" name="date" id="date"
+                                        placeholder="" value="{% now " m/d/Y" %}" readonly required>
+                               
+                              
+                                    <input hidden type="text" class="form-control inline-input" name="doctor" id="doctor"
+                                        placeholder="" value="{{ auth_user.username }}" readonly required>
+                          
+                               
+
                                 <tr>
+                                    <td colspan="2"><span>Dentes</span></td>
+                                    <td colspan="2"><input type="text" class="form-control inline-input" name="tooths"
+                                            id="tooths" placeholder="Dentes" required=""></td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2"><span>Diagnóstico</span></td>
+                                    <td colspan="2"><input type="text" class="form-control inline-input"
+                                            name="diagnostic" id="diagnostic" placeholder="Diagnostico" required="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="submit" class="btn-glow primary" value="Adicionar Diagnostico">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+
+
+
+                    <!-- <form class="form-horizontal" role="form" action="{% url 'create_diagnostic' patient.dni %}"
+                        method="post">
+                        {% csrf_token %} -->
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="col-md-1">
+                                    Codigo
+                                </th>
+                                <th class="col-md-1">
+                                    <span class="line"></span>
+                                    Situação
+                                </th>
+                                <th class="col-md-1">
+                                    <span class="line"></span>
+                                    Data
+                                </th>
+                                <th class="col-md-2">
+                                    <span class="line"></span>
+                                    Doutor
+                                </th>
+                                <th class="col-md-3">
+                                    <span class="line"></span>
+                                    Dentes
+                                </th>
+                                <th class="col-md-3">
+                                    <span class="line"></span>
+                                    Diagnostico
+                                </th>
+                                <th class="col-md-1">
+                                    <span class="line"></span>
+                                    Ação
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if diagnostics != None %}
+                            {% for diagnostic in diagnostics %}
+                            <!-- results row -->
+                            <tr class="first">
+                                <td>
+                                    {{ diagnostic.code }}
+                                </td>
+                                <td>
+                                    {% if diagnostic.status == 0 %}
+                                    <span class="label label-info">Pendente</span>
+                                    {% else %}
+                                    <span class="label label-success">Completo</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ diagnostic.date }}
+                                </td>
+                                <td>
+                                    {{ diagnostic.doctor_name }}
+                                </td>
+                                <td>
+                                    {{ diagnostic.tooths }}
+                                </td>
+                                <td>
+                                    {{ diagnostic.diagnostic }}
+                                </td>
+                                <td>
+                                    {% if diagnostic.status == 0 %}
+                                    <a href="{% url 'delete_diagnostic' patient.dni diagnostic.code %}"
+                                        class="btn-flat icon pull-left delete-user" data-toggle="tooltip" title="Delete"
+                                        data-placement="top">
+                                        <i class="icon-trash"></i>
+                                    </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                            <tr class="first">
+                                <td colspan="7">Não há registros.</td>
+                            </tr>
+                            {% endif %}
+                            <!-- new item row -->
+                            <!-- <tr>
                                     <td>
 
                                     </td>
@@ -224,10 +243,10 @@
                                     <td>
                                         <input type="submit" class="btn-glow primary" value="Adicionar Diagnostico">
                                     </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
+                                </tr> -->
+                        </tbody>
+                    </table>
+                    <!--</form>-->
                 </div>
             </div>
         </div>
@@ -252,7 +271,8 @@
                             <div class="row justify-content-center">
                                 <input id="email" hidden name="email" value="preencher" type="text">
                                 <input href="" type="submit" class="btn-glow primary" value="Atualizar Anamnese">
-                                <input onclick="email.value='enviar'" type="submit" class="ml-4 btn-glow primary" value="Enviar para Paciente">
+                                <input onclick="email.value='enviar'" type="submit" class="ml-4 btn-glow primary"
+                                    value="Enviar para Paciente">
                             </div>
                         </div>
                     </form>
@@ -281,7 +301,7 @@
             <div class="row profile">
                 <!-- bio, new note & orders column -->
                 <div class="col-md bio">
-               <form class="form-horizontal" role="form" action="{% url 'create_question' patient.dni %}" 
+                    <form class="form-horizontal" role="form" action="{% url 'create_question' patient.dni %}"
                         method="post">
                         {% csrf_token %}
                         <!-- new comment form -->
@@ -307,7 +327,8 @@
                                 <tr>
                                     <td>
                                         {{question.question}}</td>
-                                    <td><a class="btn-glow" href="{% url 'delete_question' patient.dni question.code %}"><i
+                                    <td><a class="btn-glow"
+                                            href="{% url 'delete_question' patient.dni question.code %}"><i
                                                 class="icon-trash"></i></a></td>
                                 </tr>
 
