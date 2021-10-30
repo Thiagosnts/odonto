@@ -1,4 +1,6 @@
 # from django.http import HttpResponse
+from django.core.mail import BadHeaderError, EmailMultiAlternatives
+from django.template.loader import get_template
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
 from django.contrib.messages import error, success
@@ -19,6 +21,47 @@ Sessions = Session()
 Sequences = Sequence()
 Patients = Patient()
 Questions = Question()
+
+
+
+def invoice_anamnese(request, dni, link):
+    auth_user = Sessions.validate_auth(request)
+    if auth_user is None:
+        error(request, "Você precisa logar primeiro")
+        return redirect('login')
+    # if request.method == 'GET':
+        #sequence = Sequences.find_sequence(code)
+        #sequence_treatments = Sequences.find_sequence_treatments(code)
+        # if sequence is None:
+        #     error(request, "Este prontuário não existe")
+        #     return redirect('sequences')
+        # return render(request, 'sequences/invoice.html',
+        #               {'auth_user': auth_user, 'sequence': sequence, 'sequence_treatments': sequence_treatments})
+    # if request.method == 'POST':
+    if True:
+        # sequence = Sequences.find_sequence(code)
+        # sequence_treatments = Sequences.find_sequence_treatments(code)
+        patient = Patients.get_patient_by_dni(dni)
+        try:
+            # plaintext = get_template('anamnese/emails/email.txt')
+            htmly = get_template('emails/email.html')
+
+            # data = Context({'patient': patient, 'sequence': sequence, 'sequence_treatments': sequence_treatments})
+
+            data = {'patient': patient, 'link':link}
+
+            subject, from_email, to = 'Formulário Anamnese', 'no-reply@leadodonto.com', patient['email']
+            # text_content = plaintext.render(data)
+            html_content = htmly.render(data)
+            # msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+            msg = EmailMultiAlternatives(subject, html_content , from_email, [to])
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
+
+        except BadHeaderError:
+            error(request, "Anamnese não enviada")
+            return redirect('check_patient', dni=dni)
+     
 
 
 
@@ -126,8 +169,10 @@ def check_patient(request, dni):
             {'auth_user': auth_user, 'patient': patient, 'diagnostics': diagnostics, 'questions':questions, 'anamnese':anamnese})
     
     token = gerar_token(dni)
+    url = f'http://localhost:8000/anamnese/{token}'
     
-    return redirect(f'http://localhost:8000/anamnese/{token}')
+    if list(request.POST.values())[1]=="preencher":
+        return redirect(url)
     # else:
     #     # notes = request.POST['notes']
     #     # question = request.POST['question']
@@ -143,9 +188,10 @@ def check_patient(request, dni):
     #         error(request, result)
     #     # else:
     #     #     success(request, "Prontuário atualizado com sucesso")
-    #     else:
-    #         success(request, "Pergunta adicionada com sucesso")
-    #     return redirect('check_patient', dni=dni)
+    else:
+        invoice_anamnese(request, dni, url)
+        # success(request, "Anamnese enviada para o email do Paciente")
+        return redirect('check_patient', dni=dni)
 
 
 def create_diagnostic(request, dni):
@@ -237,3 +283,4 @@ def gerar_token(dni):
     token = utils.encode_ToBase64(str(corpo)).replace("=", "")
     return token
     
+

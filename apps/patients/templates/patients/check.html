@@ -250,8 +250,9 @@
                             {% endfor %}
                             <!-- <textarea name="notes" id="notes" required>{{ patient.notes }}</textarea> -->
                             <div class="row justify-content-center">
+                                <input id="email" hidden name="email" value="preencher" type="text">
                                 <input href="" type="submit" class="btn-glow primary" value="Atualizar Anamnese">
-                                <input type="submit" class="ml-4 btn-glow primary" value="Enviar para Paciente">
+                                <input onclick="email.value='enviar'" type="submit" class="ml-4 btn-glow primary" value="Enviar para Paciente">
                             </div>
                         </div>
                     </form>
