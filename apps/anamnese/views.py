@@ -10,6 +10,7 @@ from apps.auth.models import Session
 from apps.users.models import User
 from apps.patients.models import Patient
 from apps.treatment_sequences.models import Sequence
+from apps.anamnese.models import Anamnese
 from dentaladmin.utils import validate_form
 from dentaladmin import utils
 
@@ -18,6 +19,7 @@ Users = User()
 Patients = Patient()
 Sequences = Sequence()
 Questions = Question()
+Anamneses = Anamnese()
 
 
 def montarDados(post):
@@ -54,7 +56,7 @@ def anamnese(request,token=None):
 
     if request.method == 'GET':
 
-        return render(request, 'signup.html', {'questions':questions,'token':token})
+        return render(request, 'anamnese.html', {'questions':questions,'token':token})
     else:
         # name = request.POST['name']  
         # email = request.POST['email']  
@@ -67,6 +69,8 @@ def anamnese(request,token=None):
 
         corpo = montarDados(request.POST)
         print("ok")
+
+        #result = Anamneses.create_anamnese('cpf', 'pergunta', 'reposta')
         result = Patients.edit_patient_notes(dados.get('paciente'), corpo)
 
         success(request, "Registrado com sucesso")
