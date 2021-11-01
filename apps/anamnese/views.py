@@ -57,6 +57,8 @@ def anamnese(request,token=None):
         
     else:
         corpo = montarDados(dados.get('paciente'),request.POST)
+
+        Anamneses.delete_anamnese(dados.get('paciente'))
         Anamneses.create_anamnese(corpo)
 
         success(request, "Registrado com sucesso")

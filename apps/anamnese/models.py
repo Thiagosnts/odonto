@@ -33,16 +33,15 @@ class Anamnese:
     #         return "oops, mongo error"
     #     return True
 
-    # def delete_question(self, code):
-    #     question = self.find_question(code)
-    #     if question is None:
-    #         return "Pergunta não encontrado"
-    #     try:
-    #         self.questions.update_one({'code': int(code)}, {
-    #                                   '$set': {'status': 0}})
-    #     except errors.OperationFailure:
-    #         return "Oops, Questão não deletada"
-    #     return True
+    def delete_anamnese(self, cpf):
+        # question = self.find_question(code)
+        # if question is None:
+        #     return "Pergunta não encontrado"
+        try:
+            x = self.anamnese.delete_many({"cpf":cpf})
+        except errors.OperationFailure:
+            return "Oops, Questão não deletada"
+        return True
 
     def find_anamnese(self, cpf):
         query = {"cpf":cpf}
