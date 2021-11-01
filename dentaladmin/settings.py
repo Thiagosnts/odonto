@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'apps.treatment_sequences',
     'apps.reports',
     'apps.anamnese',
+    'apps.questions',
+
 
 ]
 
@@ -74,6 +76,8 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'apps/treatment_sequences/templates/'),
             os.path.join(BASE_DIR, 'apps/reports/templates/'),
             os.path.join(BASE_DIR, 'apps/anamnese/templates/'),
+            os.path.join(BASE_DIR, 'apps/questions/templates/'),
+
         ],
         'APP_DIRS': True,
         'OPTIONS': {
