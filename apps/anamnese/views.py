@@ -56,50 +56,13 @@ def anamnese(request,token=None):
         return render(request, 'anamnese.html', {'questions':questions,'token':token})
         
     else:
-
-        # form = validate_form(request.POST)
-        # if form is not True:
-        #     error(request, "Tem algum problema em suas informações")
-        #     return render(request, "anamnese.html")
-
         corpo = montarDados(dados.get('paciente'),request.POST)
         Anamneses.create_anamnese(corpo)
 
         success(request, "Registrado com sucesso")
-        return redirect('questions', token=token)
-
-        # result = Patients.edit_patient_notes(dados.get('paciente'), corpo)
+        return render(request, 'sucesso.html')
 
 
-# def login(request, token):
-#     username=token
-#     if request.method == 'GET':
-#         return render(request, 'auth/login.html')
-#     else:
-#         if Sessions.validate_auth(request) is not None:
-#             error(request, "Você ja esta logado")
-#             return redirect('/')
-#         username = request.POST['username']
-#         password = request.POST['password']
-#         user = Auths.login(username, password)
-#         if user is None:
-#             error(request, "Erro de autenticação de usuário")
-#             return redirect('login')
-#         session_id = Sessions.start_session(user["username"], user["role"])
-#         response = redirect('/')
-#         response.set_cookie(key="session", value=session_id)
-#         success(request,None)
-#         return response
-
-
-# def logout(request):
-#     response = redirect('login')
-#     if "session" in request.COOKIES:
-#         session_id = request.COOKIES['session']
-#         Sessions.end_session(session_id)
-#         response.delete_cookie('session')
-#     success(request, "Logout feito com sucesso")
-#     return response
 
 #status 0=CANCELADO
 #status 1=ABERTO
