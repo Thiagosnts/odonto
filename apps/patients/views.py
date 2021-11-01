@@ -10,7 +10,7 @@ from dentaladmin import utils
 
 
 
-from apps.anamnese.models import Question
+from apps.questions.models import Question
 
 from apps.auth.models import Session
 from apps.treatment_sequences.models import Sequence
