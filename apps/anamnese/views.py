@@ -22,18 +22,16 @@ Questions = Question()
 Anamneses = Anamnese()
 
 
-def montarDados(post):
+def montarDados(cpf, post):
     dict = post.dict()
     list = []
 
     for chave in dict.keys():
-        list.append([chave,dict[chave]])    
+        list.append({"cpf": cpf,"pergunta": chave, "reposta": dict[chave]})
+
     list.remove(list[0])   
+    return list
 
-    lista = {"lista":list}
-
-
-    return str(lista)
 
 def anamnese(request,token=None):
     tempoExpiracao=None;
@@ -55,40 +53,22 @@ def anamnese(request,token=None):
         return redirect('patients')
 
     if request.method == 'GET':
-
         return render(request, 'anamnese.html', {'questions':questions,'token':token})
+        
     else:
-        # name = request.POST['name']  
-        # email = request.POST['email']  
-        # phone = request.POST['phone'] 
-        # role = request.POST['role']  
-        # username = request.POST['username'] 
-        # password = request.POST['password']  
 
-        form = validate_form(request.POST)
+        # form = validate_form(request.POST)
+        # if form is not True:
+        #     error(request, "Tem algum problema em suas informações")
+        #     return render(request, "anamnese.html")
 
-        corpo = montarDados(request.POST)
-        print("ok")
-
-        #result = Anamneses.create_anamnese('cpf', 'pergunta', 'reposta')
-        result = Patients.edit_patient_notes(dados.get('paciente'), corpo)
+        corpo = montarDados(dados.get('paciente'),request.POST)
+        Anamneses.create_anamnese(corpo)
 
         success(request, "Registrado com sucesso")
         return redirect('questions', token=token)
 
-
-        # if form is not True:
-        #     error(request, "Tem algum problema em suas informações")
-        #     return render(request, 'auth/signup.html',
-        #                   {'name': name, 'email': email, 'phone': phone, 'role': role,
-        #                    'username': username})
-        # result = Users.add_user(name, email, phone, role, username, password)
-        # if result is not True:
-        #     error(request, result)
-        #     return render(request, 'auth/signup.html')
-        # success(request, "Registrado com sucesso")
-        # response = redirect('login')
-        # return response
+        # result = Patients.edit_patient_notes(dados.get('paciente'), corpo)
 
 
 # def login(request, token):
