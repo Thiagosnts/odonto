@@ -5,7 +5,7 @@ import json
 from datetime import datetime
 
 
-from apps.anamnese.models import Question
+from apps.questions.models import Question
 from apps.auth.models import Session
 from apps.users.models import User
 from apps.patients.models import Patient
