@@ -159,6 +159,7 @@ def check_patient(request, cpf):
     if request.method == 'GET':
         patient = Patients.find_patient(cpf)
         diagnostics = Patients.find_diagnostics(cpf)
+
         questions = Questions.list_questions()
         
         anamnese = Anamneses.find_anamnese(cpf)
@@ -167,7 +168,7 @@ def check_patient(request, cpf):
             error(request, "Esse paciente não existe")
             return redirect('patients')
         return render(request, 'patients/check.html',
-            {'auth_user': auth_user, 'patient': patient, 'diagnostics': diagnostics, 'anamnese':anamnese})
+            {'auth_user': auth_user, 'patient': patient, 'diagnostics': diagnostics,'questions':questions, 'anamnese':anamnese})
     
     token = gerar_token(cpf)
     url = f'http://localhost:8000/anamnese/{token}'
