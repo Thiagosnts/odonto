@@ -13,7 +13,7 @@ class Patient:
         query = {'status': status}
         if search is not None:
             query = {'status': status, '$or': [
-                {'dni': {'$regex': search, '$options': 'i'}},
+                {'cpf': {'$regex': search, '$options': 'i'}},
                 {'name': {'$regex': search, '$options': 'i'}},
                 {'email': {'$regex': search, '$options': 'i'}},
                 {'phone': {'$regex': search, '$options': 'i'}}
@@ -24,20 +24,20 @@ class Patient:
             return patients
         return None
 
-    def find_patient(self, dni, status=1):
-        patient = self.patients.find_one({'dni': dni, 'status': status})
+    def find_patient(self, cpf, status=1):
+        patient = self.patients.find_one({'cpf': cpf, 'status': status})
         if not patient:
             return None
         return patient
 
-    def add_patient(self, dni, name, date_of_birth, email, phone, address, visit_reason, status=1):
-        patient_exist = self.patients.find_one({'dni': dni, 'status': status})
+    def add_patient(self, cpf, name, date_of_birth, email, phone, address, visit_reason, status=1):
+        patient_exist = self.patients.find_one({'cpf': cpf, 'status': status})
         email_exist = self.patients.find_one({'email': email, 'status': status})
         if patient_exist:
-            return "Oops, dni já existente"
+            return "Oops, cpf já existente"
         if email_exist:
             return "Oops, email já existente"
-        patient = {'dni': dni, 'name': name, 'date_of_birth': date_of_birth, 'email': email, 'phone': phone,
+        patient = {'cpf': cpf, 'name': name, 'date_of_birth': date_of_birth, 'email': email, 'phone': phone,
                    'address': address, 'visit_reason': visit_reason, 'status': status}
         try:
             self.patients.insert_one(patient)
@@ -45,31 +45,31 @@ class Patient:
             return "oops, mongo error"
         return True
 
-    def edit_patient(self, dni, name, date_of_birth, email, phone, address, visit_reason):
-        patient = self.find_patient(dni)
+    def edit_patient(self, cpf, name, date_of_birth, email, phone, address, visit_reason):
+        patient = self.find_patient(cpf)
         if patient is None:
             return "Paciente não encontrado"
         try:
-            self.patients.update_one({'dni': dni}, {
+            self.patients.update_one({'cpf': cpf}, {
                 '$set': {'name': name, 'date_of_birth': date_of_birth, 'email': email, 'phone': phone,
                          'address': address, 'visit_reason': visit_reason}})
         except errors.OperationFailure:
             return "Oops, Paciente não atualizado"
         return True
 
-    def edit_patient_notes(self, dni, notes):
-        patient = self.find_patient(dni)
+    def edit_patient_notes(self, cpf, notes):
+        patient = self.find_patient(cpf)
         if patient is None:
             return "Paciente não encontrado"
         try:
-            self.patients.update_one({'dni': dni}, {'$set': {'notes': notes}})
+            self.patients.update_one({'cpf': cpf}, {'$set': {'notes': notes}})
         except errors.OperationFailure:
             return "Oops, Paciente não atualizado"
         return True
 
-    def find_diagnostics(self, dni, status=1):
+    def find_diagnostics(self, cpf, status=1):
         cursor = self.patients.aggregate([
-            {'$match': {'dni': dni, 'status': status}},
+            {'$match': {'cpf': cpf, 'status': status}},
             {'$unwind': "$clinic_history"},
             {"$project": {
                 "_id": 0,
@@ -101,10 +101,10 @@ class Patient:
             return None
         return diagnostic
 
-    def add_diagnostic(self, dni, date, doctor, tooths, diagnostic, status=0):
-        patient = self.find_patient(dni)
+    def add_diagnostic(self, cpf, date, doctor, tooths, diagnostic, status=0):
+        patient = self.find_patient(cpf)
         cursor = self.patients.aggregate([
-            {'$match': {'dni': dni}},
+            {'$match': {'cpf': cpf}},
             {'$unwind': '$clinic_history'},
             {'$group': {'_id': '', 'count': {'$sum': 1}}}
         ])
@@ -118,38 +118,38 @@ class Patient:
         if patient is None:
             return "Paciente não encontrado"
         try:
-            self.patients.update_one({'dni': dni}, {'$push': {'clinic_history': document}})
+            self.patients.update_one({'cpf': cpf}, {'$push': {'clinic_history': document}})
         except errors.OperationFailure:
             return "Oops, Paciente não atualizado"
         return True
 
-    def edit_diagnostic(self, dni, code, status):
-        patient = self.patients.find_one({'dni': dni, 'clinic_history.code': int(code)})
+    def edit_diagnostic(self, cpf, code, status):
+        patient = self.patients.find_one({'cpf': cpf, 'clinic_history.code': int(code)})
         if patient is None:
             return "Paciente não encontrado"
         try:
-            self.patients.update_one({'dni': dni, 'clinic_history.code': int(code)},
+            self.patients.update_one({'cpf': cpf, 'clinic_history.code': int(code)},
                                      {'$set': {'clinic_history.$.status': status}})
         except errors.OperationFailure:
             return "Oops, Paciente não atualizado"
         return True
 
-    def delete_diagnostic(self, dni, code):
-        patient = self.patients.find_one({'dni': dni})
+    def delete_diagnostic(self, cpf, code):
+        patient = self.patients.find_one({'cpf': cpf})
         if patient is None:
             return "Paciente não encontrado"
         try:
-            self.patients.update_one({'dni': dni}, {'$pull': {'clinic_history': {'code': int(code)}}})
+            self.patients.update_one({'cpf': cpf}, {'$pull': {'clinic_history': {'code': int(code)}}})
         except errors.OperationFailure:
             return "Oops, Paciente não atualizado"
         return True
 
-    def delete_patient(self, dni):
-        patient = self.find_patient(dni)
+    def delete_patient(self, cpf):
+        patient = self.find_patient(cpf)
         if patient is None:
             return "Paciente não encontrado"
         try:
-            self.patients.update_one({'dni': dni}, {'$set': {'status': 0}})
+            self.patients.update_one({'cpf': cpf}, {'$set': {'status': 0}})
         except errors.OperationFailure:
             return "Oops, Paciente não deletado"
         return True
@@ -162,8 +162,8 @@ class Patient:
             return patients
         return None
 
-    def get_patient_by_dni(self, dni, status=1):
-        query = {'dni': dni, 'status': status}
+    def get_patient_by_cpf(self, cpf, status=1):
+        query = {'cpf': cpf, 'status': status}
         patient = self.patients.find_one(query)
         if patient is not None:
             return patient

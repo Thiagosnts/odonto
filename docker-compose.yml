@@ -1,9 +1,15 @@
 version: '2'
 services:
-  db:
+  mongo:
     image: mongo
     ports:
-      - "27017:27017"
+      - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
   # web:
   #   # build: .
   #   image: lex720/django

@@ -44,7 +44,7 @@ class Sequence:
             {'$lookup': {
                 'from': 'patients',
                 'localField': 'patient',
-                'foreignField': 'dni',
+                'foreignField': 'cpf',
                 'as': 'patient_data'}},
             {'$lookup': {
                 'from': 'users',
@@ -196,12 +196,12 @@ class Sequence:
             return "Oops, erro ao cancelar prontuário"
         return True
 
-    def cancel_sequences_from_patient(self, dni):
-        sequence = self.sequences.find({'patient': dni, '$or': [{'status': 1}, {'status': 2}]})
+    def cancel_sequences_from_patient(self, cpf):
+        sequence = self.sequences.find({'patient': cpf, '$or': [{'status': 1}, {'status': 2}]})
         if sequence is None:
             return False
         try:
-            self.sequences.update({'patient': dni, '$or': [{'status': 1}, {'status': 2}]}, {'$set': {'status': 0}},
+            self.sequences.update({'patient': cpf, '$or': [{'status': 1}, {'status': 2}]}, {'$set': {'status': 0}},
                                   upsert=False, multi=True)
         except errors.OperationFailure:
             return False
@@ -215,7 +215,7 @@ class Sequence:
             {'$lookup': {
                 'from': 'patients',
                 'localField': 'patient',
-                'foreignField': 'dni',
+                'foreignField': 'cpf',
                 'as': 'patient_data'}},
             {'$lookup': {
                 'from': 'users',

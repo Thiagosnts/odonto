@@ -58,27 +58,27 @@ def create_sequence(request):
         date = request.POST['date']
         shift = request.POST['shift']
         doctor_username = request.POST['doctor_username']
-        patient_dni = request.POST['patient_dni']
+        patient_cpf = request.POST['patient_cpf']
         form = validate_form(request.POST)
         # From check patient
         if 'direct_appointment' in request.POST:
-            code = Sequences.add_sequence_from_patient(date, shift, doctor_username, patient_dni)
+            code = Sequences.add_sequence_from_patient(date, shift, doctor_username, patient_cpf)
             if code is False:
                 error(request, "Houve um problema criando o tratamento")
-                return redirect('check_patient', dni=patient_dni)
+                return redirect('check_patient', cpf=patient_cpf)
             success(request, "Treatment sequence created successfully")
             return redirect('process_sequence', code=code)
         if form is not True:
             error(request, "Há um problema com seus dados, favor verificar")
             return render(request, 'sequences/create.html',
                           {'auth_user': auth_user, 'doctors': doctors, 'patients': patients, 'date': date,
-                           'shift': shift, 'doctor_username': doctor_username, 'patient_dni': patient_dni})
-        result = Sequences.add_sequence(date, shift, doctor_username, patient_dni)
+                           'shift': shift, 'doctor_username': doctor_username, 'patient_cpf': patient_cpf})
+        result = Sequences.add_sequence(date, shift, doctor_username, patient_cpf)
         if result is not True:
             error(request, result)
             return render(request, 'sequences/create.html',
                           {'auth_user': auth_user, 'doctors': doctors, 'patients': patients, 'date': date,
-                           'shift': shift, 'doctor_username': doctor_username, 'patient_dni': patient_dni})
+                           'shift': shift, 'doctor_username': doctor_username, 'patient_cpf': patient_cpf})
         success(request, "Tratamento registrado com sucesso")
         response = redirect('sequences')
         return response
@@ -101,7 +101,7 @@ def process_sequence(request, code):
                       {'auth_user': auth_user, 'sequence': sequence, 'patient_diagnostics': patient_diagnostics,
                        'clinic_treatments': clinic_treatments, 'sequence_treatments': sequence_treatments})
     else:
-        patient_dni = request.POST['patient_dni']
+        patient_cpf = request.POST['patient_cpf']
         status = 1
         diagnostic_code = request.POST['diagnostic_code']
         treatment_code = request.POST['treatment_code']
@@ -115,7 +115,7 @@ def process_sequence(request, code):
         if result is not True:
             error(request, result)
         else:
-            Patients.edit_diagnostic(patient_dni, diagnostic_code, status)
+            Patients.edit_diagnostic(patient_cpf, diagnostic_code, status)
             success(request, "Tratamento atualizado com sucesso")
         return redirect('process_sequence', code=code)
 
@@ -127,7 +127,7 @@ def delete_sequence_treatment(request, code, code2):
         return redirect('login')
     if request.method == 'POST':
         subtotal = request.POST['subtotal']
-        patient_dni = request.POST['patient_dni']
+        patient_cpf = request.POST['patient_cpf']
         status = 0
         form = validate_form(request.POST)
         if form is not True:
@@ -137,7 +137,7 @@ def delete_sequence_treatment(request, code, code2):
         if result is not True:
             error(request, result)
         else:
-            Patients.edit_diagnostic(patient_dni, code2, status)
+            Patients.edit_diagnostic(patient_cpf, code2, status)
             success(request, "Tratamento deletado com sucesso")
         return redirect('process_sequence', code=code)
 
@@ -172,7 +172,7 @@ def invoice_sequence(request, code):
     if request.method == 'POST':
         sequence = Sequences.find_sequence(code)
         sequence_treatments = Sequences.find_sequence_treatments(code)
-        patient = Patients.get_patient_by_dni(sequence['patient'])
+        patient = Patients.get_patient_by_cpf(sequence['patient'])
         try:
             plaintext = get_template('sequences/emails/email.txt')
             htmly = get_template('sequences/emails/email.html')

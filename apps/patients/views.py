@@ -24,7 +24,7 @@ Questions = Question()
 
 
 
-def invoice_anamnese(request, dni, link):
+def invoice_anamnese(request, cpf, link):
     auth_user = Sessions.validate_auth(request)
     if auth_user is None:
         error(request, "Você precisa logar primeiro")
@@ -41,7 +41,7 @@ def invoice_anamnese(request, dni, link):
     if True:
         # sequence = Sequences.find_sequence(code)
         # sequence_treatments = Sequences.find_sequence_treatments(code)
-        patient = Patients.get_patient_by_dni(dni)
+        patient = Patients.get_patient_by_cpf(cpf)
         try:
             # plaintext = get_template('anamnese/emails/email.txt')
             htmly = get_template('emails/email.html')
@@ -60,7 +60,7 @@ def invoice_anamnese(request, dni, link):
 
         except BadHeaderError:
             error(request, "Anamnese não enviada")
-            return redirect('check_patient', dni=dni)
+            return redirect('check_patient', cpf=cpf)
      
 
 
@@ -95,7 +95,7 @@ def create_patient(request):
     if request.method == 'GET':
         return render(request, 'patients/create.html', {'auth_user': auth_user})
     else:
-        dni = request.POST['dni']
+        cpf = request.POST['cpf']
         name = request.POST['name']
         date_of_birth = request.POST['date_of_birth']
         email = request.POST['email']
@@ -106,26 +106,26 @@ def create_patient(request):
         if form is not True:
             error(request, "Existe um problema com as suas informações, Favor Verificar")
             return render(request, 'patients/create.html',
-                          {'auth_user': auth_user, 'dni': dni, 'name': name, 'date_of_birth': date_of_birth,
+                          {'auth_user': auth_user, 'cpf': cpf, 'name': name, 'date_of_birth': date_of_birth,
                            'email': email, 'phone': phone, 'address': address, 'visit_reason': visit_reason})
-        result = Patients.add_patient(dni, name, date_of_birth, email, phone, address, visit_reason)
+        result = Patients.add_patient(cpf, name, date_of_birth, email, phone, address, visit_reason)
         if result is not True:
             error(request, result)
             return render(request, 'patients/create.html',
-                          {'auth_user': auth_user, 'dni': dni, 'name': name, 'date_of_birth': date_of_birth,
+                          {'auth_user': auth_user, 'cpf': cpf, 'name': name, 'date_of_birth': date_of_birth,
                            'email': email, 'phone': phone, 'address': address, 'visit_reason': visit_reason})
         success(request, "Paciente Registrado com Sucesso")
         response = redirect('patients')
         return response
 
 
-def edit_patient(request, dni):
+def edit_patient(request, cpf):
     auth_user = Sessions.validate_auth(request)
     if auth_user is None:
         error(request, "Você precisa Logar Primeiro")
         return redirect('login')
     if request.method == 'GET':
-        patient = Patients.find_patient(dni)
+        patient = Patients.find_patient(cpf)
         if patient is None:
             error(request, "O paciente não Existe")
             return redirect('patients')
@@ -140,24 +140,24 @@ def edit_patient(request, dni):
         form = validate_form(request.POST)
         if form is not True:
             error(request, "Existe um problema com as suas informações, Favor Verificar")
-            return redirect('edit_patient', dni=dni)
-        result = Patients.edit_patient(dni, name, date_of_birth, email, phone, address, visit_reason)
+            return redirect('edit_patient', cpf=cpf)
+        result = Patients.edit_patient(cpf, name, date_of_birth, email, phone, address, visit_reason)
         if result is not True:
             error(request, result)
-            return redirect('edit_patient', dni=dni)
+            return redirect('edit_patient', cpf=cpf)
         response = redirect('patients')
         success(request, "Paciente atualizado com sucesso")
         return response
 
 
-def check_patient(request, dni):
+def check_patient(request, cpf):
     auth_user = Sessions.validate_auth(request)
     if auth_user is None:
         error(request, "Você precisa Logar Primeiro")
         return redirect('login')
     if request.method == 'GET':
-        patient = Patients.find_patient(dni)
-        diagnostics = Patients.find_diagnostics(dni)
+        patient = Patients.find_patient(cpf)
+        diagnostics = Patients.find_diagnostics(cpf)
         questions = Questions.list_questions()
         
         anamnese = utils.toJson(patient.get("notes"))
@@ -168,7 +168,7 @@ def check_patient(request, dni):
         return render(request, 'patients/check.html',
             {'auth_user': auth_user, 'patient': patient, 'diagnostics': diagnostics, 'questions':questions, 'anamnese':anamnese})
     
-    token = gerar_token(dni)
+    token = gerar_token(cpf)
     url = f'http://localhost:8000/anamnese/{token}'
     
     if list(request.POST.values())[1]=="preencher":
@@ -180,7 +180,7 @@ def check_patient(request, dni):
     #     form = validate_form(request.POST)
     #     if form is not True:
     #         error(request, "Existe um problema com as suas informações, Favor Verificar")
-    #         return redirect('check_patient', dni=dni)
+    #         return redirect('check_patient', cpf=cpf)
 
     #     # result = Questions.add_question(question)
         
@@ -189,12 +189,12 @@ def check_patient(request, dni):
     #     # else:
     #     #     success(request, "Prontuário atualizado com sucesso")
     else:
-        invoice_anamnese(request, dni, url)
+        invoice_anamnese(request, cpf, url)
         success(request, "Anamnese enviada para o email do Paciente")
-        return redirect('check_patient', dni=dni)
+        return redirect('check_patient', cpf=cpf)
 
 
-def create_diagnostic(request, dni):
+def create_diagnostic(request, cpf):
     auth_user = Sessions.validate_auth(request)
     if auth_user is None:
         error(request, "Você precisa Logar Primeiro")
@@ -207,35 +207,35 @@ def create_diagnostic(request, dni):
         form = validate_form(request.POST)
         if form is not True:
             error(request, "Existe um problema com as suas informações, Favor Verificar")
-            return redirect('check_patient', dni=dni)
-        result = Patients.add_diagnostic(dni, date, doctor, tooths, diagnostic)
+            return redirect('check_patient', cpf=cpf)
+        result = Patients.add_diagnostic(cpf, date, doctor, tooths, diagnostic)
         if result is not True:
             error(request, result)
         else:
             success(request, "Paciente atualizado com sucesso")
-        return redirect('check_patient', dni=dni)
+        return redirect('check_patient', cpf=cpf)
 
 
-def delete_diagnostic(request, dni, code):
+def delete_diagnostic(request, cpf, code):
     auth_user = Sessions.validate_auth(request)
     if auth_user is None:
         error(request, "Você precisa Logar Primeiro")
         return redirect('login')
     if request.method == 'GET':
-        result = Patients.delete_diagnostic(dni, code)
+        result = Patients.delete_diagnostic(cpf, code)
         if result is not True:
             error(request, result)
         else:
             success(request, "Paciente atualizado com sucesso")
-        return redirect('check_patient', dni=dni)
+        return redirect('check_patient', cpf=cpf)
 
 
-def delete_patient(request, dni):
+def delete_patient(request, cpf):
     if Sessions.validate_auth(request) is None:
         error(request, "Você precisa Logar Primeiro")
         return redirect('login')
-    result = Patients.delete_patient(dni)
-    Sequences.cancel_sequences_from_patient(dni)
+    result = Patients.delete_patient(cpf)
+    Sequences.cancel_sequences_from_patient(cpf)
     response = redirect('check_patient')
     if result is not True:
         error(request, result)
@@ -243,7 +243,7 @@ def delete_patient(request, dni):
     success(request, "Paciente deletado com sucesso")
     return response
 
-def create_question(request, dni):
+def create_question(request, cpf):
     auth_user = Sessions.validate_auth(request)
     if auth_user is None:
         error(request, "Você precisa Logar Primeiro")
@@ -253,7 +253,7 @@ def create_question(request, dni):
         form = validate_form(request.POST)
         if form is not True:
             error(request, "Existe um problema com as suas informações, Favor Verificar")
-            return redirect('check_patient', dni=dni)
+            return redirect('check_patient', cpf=cpf)
 
         result = Questions.add_question(question)   
 
@@ -261,25 +261,25 @@ def create_question(request, dni):
             error(request, result)
         else:
             success(request, "Pergunta adicionada com sucesso")
-        return redirect('check_patient', dni=dni)
+        return redirect('check_patient', cpf=cpf)
 
 
-def delete_question(request,dni, code):
+def delete_question(request,cpf, code):
     if Sessions.validate_auth(request) is None:
         error(request, "Você precisa Logar Primeiro")
         return redirect('login')
     result = Questions.delete_question(code)
-    # Sequences.cancel_sequences_from_patient(dni)
-    response = redirect('check_patient', dni=dni)
+    # Sequences.cancel_sequences_from_patient(cpf)
+    response = redirect('check_patient', cpf=cpf)
     if result is not True:
         error(request, result)
         return response
     success(request, "Pergunta deletada com sucesso")
     return response
 
-def gerar_token(dni):
+def gerar_token(cpf):
     dataAtual = str(datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
-    corpo = {'acesso': 'garantido', 'data_criacao': dataAtual, 'paciente': dni}
+    corpo = {'acesso': 'garantido', 'data_criacao': dataAtual, 'paciente': cpf}
     token = utils.encode_ToBase64(str(corpo)).replace("=", "")
     return token
     

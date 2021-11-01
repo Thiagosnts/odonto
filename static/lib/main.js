@@ -13118,7 +13118,7 @@ var FullCalendar = (function (exports) {
             return null;
         };
         // Computes the top coordinate, relative to the bounds of the grid, of the given date.
-        // A `startOfDayDate` must be given for avoiding ambiguity over how to treat midnight.
+        // A `startOfDayDate` must be given for avoiding ambiguity over how to treat micpfght.
         TimeColsSlatsCoords.prototype.computeDateTop = function (when, startOfDayDate) {
             if (!startOfDayDate) {
                 startOfDayDate = startOfDay(when);

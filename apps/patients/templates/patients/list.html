@@ -73,7 +73,7 @@
                         {% for patient in patients %}
                             <tr class="first">
                                 <td>
-                                    <a class="name">{{ patient.dni }}</a>
+                                    <a class="name">{{ patient.cpf }}</a>
                                 </td>
                                 <td>
                                     {{ patient.name }}
@@ -90,14 +90,14 @@
                                 <td>
                                     {% if auth_user.role == 'admin' or auth_user.role == 'doctor'  %}
                                         <i class="icon-user-md"></i>
-                                        <a href="{% url 'check_patient' patient.dni %}">Prontuário</a><br>
+                                        <a href="{% url 'check_patient' patient.cpf %}">Prontuário</a><br>
                                     {% endif %}
 
                                     {% if auth_user.role == 'admin' or auth_user.role == 'office'  %}
                                         <i class="icon-edit-sign"></i>
-                                        <a href="{% url 'edit_patient' patient.dni %}">Editar</a><br>
+                                        <a href="{% url 'edit_patient' patient.cpf %}">Editar</a><br>
                                         <i class="icon-trash"></i>
-                                        <a href="{% url 'delete_patient' patient.dni %}">Deletar</a>
+                                        <a href="{% url 'delete_patient' patient.cpf %}">Deletar</a>
                                         &nbsp;
                                     {% endif %}
                                 </td>

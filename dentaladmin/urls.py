@@ -38,13 +38,13 @@ urlpatterns = [
     # Patients
     url(r'^patients/$', patients_views.index, name='patients'),
     url(r'^patients/create/$', patients_views.create_patient, name='create_patient'),
-    url(r'^patients/edit/(?P<dni>\d+)/$', patients_views.edit_patient, name='edit_patient'),
-    url(r'^patients/check/(?P<dni>\d+)/$', patients_views.check_patient, name='check_patient'),
-    url(r'^patients/check/(?P<dni>\d+)/diagnostic/create/$', patients_views.create_diagnostic,
+    url(r'^patients/edit/(?P<cpf>\d+)/$', patients_views.edit_patient, name='edit_patient'),
+    url(r'^patients/check/(?P<cpf>\d+)/$', patients_views.check_patient, name='check_patient'),
+    url(r'^patients/check/(?P<cpf>\d+)/diagnostic/create/$', patients_views.create_diagnostic,
         name='create_diagnostic'),
-    url(r'^patients/check/(?P<dni>\d+)/diagnostic/delete/(?P<code>\d+)/$', patients_views.delete_diagnostic,
+    url(r'^patients/check/(?P<cpf>\d+)/diagnostic/delete/(?P<code>\d+)/$', patients_views.delete_diagnostic,
         name='delete_diagnostic'),
-    url(r'^patients/delete/(?P<dni>\d+)/$', patients_views.delete_patient, name='delete_patient'),
+    url(r'^patients/delete/(?P<cpf>\d+)/$', patients_views.delete_patient, name='delete_patient'),
     # Treatments
     url(r'^treatments/$', treatments_views.index, name='treatments'),
     url(r'^treatments/create/$', treatments_views.create_treatment, name='create_treatment'),
@@ -65,11 +65,11 @@ urlpatterns = [
     # Anamnese
     url(r'^anamnese/(?P<token>\w+)/$', anamnese_views.anamnese, name='anamnese'),
     # url(r'^anamnese/$', treatments_views.index, name='treatments'),
-    url(r'^patients/check/(?P<dni>\d+)/question/create/$', patients_views.create_question,
+    url(r'^patients/check/(?P<cpf>\d+)/question/create/$', patients_views.create_question,
         name='create_question'),
     # url(r'^anamnese/edit/(?P<code>\w+)/$', treatments_views.edit_treatment, name='edit_treatment'),
     # url(r'^patients/check/(?P<code>\w+)/$', treatments_views.delete_treatment, name='delete_treatment'),
-    url(r'^patients/check/(?P<dni>\d+)/question/delete/(?P<code>\d+)/$', patients_views.delete_question,
+    url(r'^patients/check/(?P<cpf>\d+)/question/delete/(?P<code>\d+)/$', patients_views.delete_question,
         name='delete_question'),
 
 ]

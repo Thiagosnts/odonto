@@ -52,7 +52,7 @@
         <div class="row" style="margin-top: 50px;">
             <form class="form-horizontal" role="form" action="{% url 'process_sequence' sequence.code %}" method="post">
                 {% csrf_token %}
-                <input type="hidden" name="patient_dni" id="patient_dni" value="{{ sequence.patient }}">
+                <input type="hidden" name="patient_cpf" id="patient_cpf" value="{{ sequence.patient }}">
                 <div class="col-md-12">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -155,7 +155,7 @@
                                         <form class="form-horizontal" role="form" action="{% url 'delete_sequence_treatment' sequence.code treatment.diagnostic_code %}" method="post">
                                             {% csrf_token %}
                                             <input type="hidden" name="subtotal" id="subtotal" value="{{ treatment.subtotal }}">
-                                            <input type="hidden" name="patient_dni" id="patient_dni" value="{{ sequence.patient }}">
+                                            <input type="hidden" name="patient_cpf" id="patient_cpf" value="{{ sequence.patient }}">
                                             <button type="submit" class="btn-flat icon pull-left delete-user" data-toggle="tooltip" title="Delete" data-placement="top">
                                                 <i class="icon-trash"></i>
                                             </button>
