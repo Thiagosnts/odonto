@@ -278,22 +278,6 @@
                     </form>
                 </div>
 
-                <!-- side address column -->
-                <!-- <div class="col-md-3 col-xs-12 address pull-right">
-                    <h6>Endereço</h6>
-                    <iframe width="300" height="133" scrolling="no" src="https://maps.google.com.mx/?ie=UTF8&amp;t=m&amp;ll=22.0622284,-44.0478846,8&amp;spn=42.7076107&amp;z=14&amp;output=embed"></iframe>
-                    <ul>
-                        <li>{{ patient.address }}</li>
-                        <li class="ico-li">
-                            <i class="ico-phone"></i>
-                            {{ patient.phone }}
-                        </li>
-                         <li class="ico-li">
-                            <i class="ico-mail"></i>
-                            <a href="mailto:{{ patient.email }}">{{ patient.email }}</a>
-                        </li>
-                    </ul>
-                </div> -->
             </div>
         </div>
 
@@ -335,7 +319,7 @@
                                 {% endfor %}
                                 {% else %}
                                 <tr>
-                                    <td class="first"> Não há registros</td>
+                                    <td class="first"> Não há registros</td><td></td><td></td>
                                 </tr>
                                 {% endif %}
                             </table>
