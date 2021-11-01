@@ -70,7 +70,7 @@ def anamnese(request,token=None):
         result = Patients.edit_patient_notes(dados.get('paciente'), corpo)
 
         success(request, "Registrado com sucesso")
-        return redirect('anamnese', token=token)
+        return redirect('questions', token=token)
 
 
         # if form is not True:
