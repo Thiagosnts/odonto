@@ -80,6 +80,8 @@ def get_interval_date(dataAtual, date="25/10/2021 13:58:18"):
     return expirado.seconds/60 
 
 def toJson(string):
-    return json.loads(string.replace("'","\""))
+    if string:
+        return json.loads(string.replace("'","\""))
+    return string
 
    

@@ -10,14 +10,14 @@ class Question:
         self.db = database
         self.questions = self.db.questions
 
-    # def create_anamnese(self, cpf, pergunta, reposta):
-    #     session_id = utils.get_random_str(32)
-    #     session = {'cpf': cpf, 'pergunta': pergunta, 'reposta': reposta}
-    #     try:
-    #         self.sessions.insert_one(session)
-    #     except errors.OperationFailure:
-    #         return "oops, mongo error"
-    #     return str(session['_id'])
+    def create_anamnese(self, cpf, pergunta, reposta):
+        session_id = utils.get_random_str(32)
+        session = {'cpf': cpf, 'pergunta': pergunta, 'reposta': reposta}
+        try:
+            self.sessions.insert_one(session)
+        except errors.OperationFailure:
+            return "oops, mongo error"
+        return str(session['_id'])
 
     def find_question(self, code, status=1):
         question = self.questions.find_one({'code': int(code),'status': 1})
