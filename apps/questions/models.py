@@ -10,9 +10,9 @@ class Question:
         self.db = database
         self.questions = self.db.questions
 
-    def create_anamnese(self, cpf, pergunta, reposta):
+    def create_anamnese(self, cpf, pergunta, resposta):
         session_id = utils.get_random_str(32)
-        session = {'cpf': cpf, 'pergunta': pergunta, 'reposta': reposta}
+        session = {'cpf': cpf, 'pergunta': pergunta, 'resposta': resposta}
         try:
             self.sessions.insert_one(session)
         except errors.OperationFailure:

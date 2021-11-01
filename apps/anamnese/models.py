@@ -44,14 +44,12 @@ class Anamnese:
     #         return "Oops, Questão não deletada"
     #     return True
 
-    # def list_questions(self, status=1):
-    #     query = {'status': status}
-    #     cursor = self.questions.find(query)
-    #     # cursor = self.questions.aggregate([])
-    #     #questions = list(cursor)
-    #     questions = cursor
-    #     count = questions.count()
-    #     #count = len(questions)
-    #     if count > 0:
-    #         return questions
-    #     return None
+    def find_anamnese(self, cpf):
+        query = {"cpf":cpf}
+        cursor = self.anamnese.find(query)
+        anamnese = cursor
+        count = anamnese.count()
+
+        if count > 0:
+            return anamnese
+        return None

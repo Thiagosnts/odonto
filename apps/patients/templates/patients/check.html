@@ -262,8 +262,8 @@
                             <!-- <h4 class="name">ANAMNESE</h4> -->
                             <!-- <p>Adicione uma observação sobre este usuário para manter um histórico de seus prontuários.</p> -->
                             <label for="notes"></label>
-                            {% for item in anamnese.lista %}
-                            <span><b>{{item|first}}</b> <br>{{item|last}}</span>
+                            {% for item in anamnese %}
+                            <span><b>{{item.pergunta}}</b> <br>{{item.resposta}}</span>
                             <br>
 
                             {% endfor %}

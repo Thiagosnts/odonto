@@ -11,7 +11,7 @@ from dentaladmin import utils
 
 
 from apps.questions.models import Question
-
+from apps.anamnese.models import Anamnese
 from apps.auth.models import Session
 from apps.treatment_sequences.models import Sequence
 from .models import Patient
@@ -21,6 +21,7 @@ Sessions = Session()
 Sequences = Sequence()
 Patients = Patient()
 Questions = Question()
+Anamneses = Anamnese()
 
 
 
@@ -160,13 +161,15 @@ def check_patient(request, cpf):
         diagnostics = Patients.find_diagnostics(cpf)
         questions = Questions.list_questions()
         
-        anamnese = utils.toJson(patient.get("notes"))
+        #anamnese = utils.toJson(patient.get("notes"))
+        anamnese = Anamneses.find_anamnese(cpf)
+
 
         if patient is None:
             error(request, "Esse paciente não existe")
             return redirect('patients')
         return render(request, 'patients/check.html',
-            {'auth_user': auth_user, 'patient': patient, 'diagnostics': diagnostics, 'questions':questions, 'anamnese':anamnese})
+            {'auth_user': auth_user, 'patient': patient, 'diagnostics': diagnostics, 'anamnese':anamnese})
     
     token = gerar_token(cpf)
     url = f'http://localhost:8000/anamnese/{token}'

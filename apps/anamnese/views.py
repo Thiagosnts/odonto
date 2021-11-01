@@ -27,7 +27,7 @@ def montarDados(cpf, post):
     list = []
 
     for chave in dict.keys():
-        list.append({"cpf": cpf,"pergunta": chave, "reposta": dict[chave]})
+        list.append({"cpf": cpf,"pergunta": chave, "resposta": dict[chave]})
 
     list.remove(list[0])   
     return list
