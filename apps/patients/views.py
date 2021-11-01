@@ -161,9 +161,7 @@ def check_patient(request, cpf):
         diagnostics = Patients.find_diagnostics(cpf)
         questions = Questions.list_questions()
         
-        #anamnese = utils.toJson(patient.get("notes"))
         anamnese = Anamneses.find_anamnese(cpf)
-
 
         if patient is None:
             error(request, "Esse paciente não existe")
@@ -173,24 +171,14 @@ def check_patient(request, cpf):
     
     token = gerar_token(cpf)
     url = f'http://localhost:8000/anamnese/{token}'
+
+    form = validate_form(request.POST)
+    if form is not True:
+        error(request, "Existe um problema com as suas informações, Favor Verificar")
+        return redirect('check_patient', cpf=cpf)
     
     if list(request.POST.values())[1]=="preencher":
         return redirect(url)
-    # else:
-    #     # notes = request.POST['notes']
-    #     # question = request.POST['question']
-
-    #     form = validate_form(request.POST)
-    #     if form is not True:
-    #         error(request, "Existe um problema com as suas informações, Favor Verificar")
-    #         return redirect('check_patient', cpf=cpf)
-
-    #     # result = Questions.add_question(question)
-        
-    #     if result is not True:
-    #         error(request, result)
-    #     # else:
-    #     #     success(request, "Prontuário atualizado com sucesso")
     else:
         invoice_anamnese(request, cpf, url)
         success(request, "Anamnese enviada para o email do Paciente")
