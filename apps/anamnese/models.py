@@ -1,4 +1,5 @@
 from pymongo import cursor
+from apps.anamnese.views import anamnese
 from dentaladmin import utils
 
 database = utils.database_connection
@@ -17,7 +18,8 @@ class Anamnese:
             return "oops, mongo error"
 
     def delete_anamnese(self, cpf):
-        if self.find_anamnese(cpf) is None:
+        anamnese = self.find_anamnese(cpf)
+        if anamnese is None:
             return "Pergunta não encontrado"
         try:
             x = self.anamnese.delete_many({"cpf":cpf})
@@ -32,5 +34,5 @@ class Anamnese:
         count = anamnese.count()
 
         if count > 0:
-            return True
-        return False
+            return anamnese
+        return None
