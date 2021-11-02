@@ -147,14 +147,14 @@
                     </thead>
                     <tbody>
                         {% if sequence_treatments != None %}
-                            {% for treatment in sequence_treatments %}
+                            {% for treatment in sequence_treatments.treatments %}
                                 <!-- results row -->
                                 <tr class="first">
                                     <td>
-                                        <form class="form-horizontal" role="form" action="{% url 'delete_sequence_treatment' sequence.code treatment.diagnostic_code %}" method="post">
+                                        <form class="form-horizontal" role="form" action="{% url 'delete_sequence_treatment' sequence_treatments.code treatment.diagnostic_code %}" method="post">
                                             {% csrf_token %}
                                             <input type="hidden" name="subtotal" id="subtotal" value="{{ treatment.subtotal }}">
-                                            <input type="hidden" name="patient_cpf" id="patient_cpf" value="{{ sequence.patient }}">
+                                            <input type="hidden" name="patient_cpf" id="patient_cpf" value="{{ sequence_treatments.patient }}">
                                             <button type="submit" class="btn-flat icon pull-left delete-user" data-toggle="tooltip" title="Delete" data-placement="top">
                                                 <i class="icon-trash"></i>
                                             </button>

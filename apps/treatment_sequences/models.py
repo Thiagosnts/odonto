@@ -120,33 +120,37 @@ class Sequence:
 
     def find_sequence_treatments(self, code):
         cursor = self.sequences.aggregate([
-            {'$match': {'code': int(code), '$or': [{'status': 1}, {'status': 2}, {'status': 3}]}},
-            {'$unwind': '$treatments'},
-            {'$project': {
-                '_id': 0,
-                'date': '$treatments.date',
-                'diagnostic_code': '$treatments.diagnostic_code',
-                'treatment_code': '$treatments.treatment_code',
-                'treatment_quantity': '$treatments.treatment_quantity',
-                'subtotal': '$treatments.subtotal'}},
-            {'$lookup': {
-                'from': 'treatments',
-                'localField': 'treatment_code',
-                'foreignField': 'code',
-                'as': 'treatment_data'}},
-            {'$unwind': '$treatment_data'},
-            {'$project': {
-                'date': 1,
-                'diagnostic_code': 1,
-                'treatment_code': 1,
-                'treatment_name': '$treatment_data.name',
-                'treatment_price': '$treatment_data.price',
-                'treatment_quantity': 1,
-                'subtotal': 1}},
-            {'$sort': {'date': 1}}
-        ])
+            {'$match': {'code': int(code), '$or': [{'status': 1}, {'status': 2}, {'status': 3}]}}])
 
-        treatments = list(cursor)
+
+        #     cursor = self.sequences.aggregate([
+        #     {'$match': {'code': int(code), '$or': [{'status': 1}, {'status': 2}, {'status': 3}]}},
+        #     {'$unwind': '$treatments'},
+        #     {'$project': {
+        #         '_id': 0,
+        #         'date': '$treatments.date',
+        #         'diagnostic_code': '$treatments.diagnostic_code',
+        #         'treatment_code': '$treatments.treatment_code',
+        #         'treatment_quantity': '$treatments.treatment_quantity',
+        #         'subtotal': '$treatments.subtotal'}},
+        #     {'$lookup': {
+        #         'from': 'treatments',
+        #         'localField': 'treatment_code',
+        #         'foreignField': 'code',
+        #         'as': 'treatment_data'}},
+        #     {'$unwind': '$treatment_data'},
+        #     {'$project': {
+        #         'date': 1,
+        #         'diagnostic_code': 1,
+        #         'treatment_code': 1,
+        #         'treatment_name': '$treatment_data.name',
+        #         'treatment_price': '$treatment_data.price',
+        #         'treatment_quantity': 1,
+        #         'subtotal': 1}},
+        #     {'$sort': {'date': 1}}
+        # ])
+
+        treatments = list(cursor)[0]
         if not treatments:
             return None
         return treatments

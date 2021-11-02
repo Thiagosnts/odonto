@@ -73,7 +73,7 @@ class Treatment:
         return None
 
     def get_treatment_by_code(self, code, status=1):
-        query = {'code': code, 'status': status}
+        query = {'code': int(code), 'status': status}
         treatment = self.treatments.find_one(query)
         if treatment is not None:
             return treatment
