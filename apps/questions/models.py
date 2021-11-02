@@ -25,7 +25,7 @@ class Question:
             return None
         return question
 
-    def add_question(self, question_date,status=1):
+    def create_question(self, question_date,status=1):
         count = self.questions.find({}).count()
         code = count + 10
 

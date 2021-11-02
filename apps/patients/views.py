@@ -247,7 +247,7 @@ def create_question(request, cpf):
             error(request, "Existe um problema com as suas informações, Favor Verificar")
             return redirect('check_patient', cpf=cpf)
 
-        result = Questions.add_question(question)   
+        result = Questions.create_question(question)   
 
         if result is not True:
             error(request, result)

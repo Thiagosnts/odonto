@@ -66,32 +66,5 @@ def anamnese(request,token=None):
 
 
 
-#status 0=CANCELADO
-#status 1=ABERTO
-#status 2=ANDAMENTO
-#status 3=FECHADO
 
 
-
-# def dashboard(request):
-#     auth_user = Sessions.validate_auth(request)
-#     if auth_user is None:
-#         error(request, "Você precisa logar primeiro")
-#         return redirect('login')
-#     if auth_user['role'] == 'doctor':
-#         sequences = Sequences.find_sequences(None, auth_user['username'])
-#     else:
-#         sequences = Sequences.find_sequences(None)
-#     users_count = 0
-#     users = Users.find_users(None)
-#     if users is not None:
-#         users_count = users.count()
-#     patients_count = 0
-#     patients = Patients.find_patients(None)
-#     if patients is not None:
-#         patients_count = patients.count()
-#     sequences_done = Sequences.report_sequences(None)
-#     total = Sequences.report_sequences_total(None)
-#     return render(request, 'auth/dashboard.html',
-#                   {'auth_user': auth_user, 'users': users_count, 'patients': patients_count, 'sequences': sequences,
-#                    'total': total,'sequences_done':sequences_done})
