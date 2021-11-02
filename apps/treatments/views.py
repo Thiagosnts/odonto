@@ -73,7 +73,7 @@ def edit_treatment(request, code):
         error(request, "Você não tem permissão para este módulo")
         return redirect('/')
     if request.method == 'GET':
-        treatment = Treatments.find_treatment(code)
+        treatment = Treatments.find_treatment(int(code))
         if treatment is None:
             error(request, "Esse tratamento não existe")
             return redirect('treatments')
@@ -102,7 +102,7 @@ def delete_treatment(request, code):
     if auth_user['role'] != 'admin':
         error(request, "Você não tem permissão para este módulo")
         return redirect('/')
-    result = Treatments.delete_treatment(code)
+    result = Treatments.delete_treatment(int(code))
     response = redirect('treatments')
     if result is not True:
         error(request, result)
