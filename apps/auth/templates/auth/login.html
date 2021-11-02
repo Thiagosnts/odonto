@@ -4,6 +4,14 @@
 {% load static %}
 
 {% block style %}
+<style>
+html{background-image: url(/static/fundo1.jpg);background-size: 100%;}
+.logo{ 
+    position: fixed!important;
+    z-index: 1000!important;
+    top: 540px!important;
+    left: 1030px!important;}
+</style>
     <link rel="stylesheet" href="{% static 'css/compiled/signin.css' %}" type="text/css" media="screen" />
 {% endblock %}
 
@@ -29,7 +37,7 @@
     </div>
 
     <div class="login-wrapper">
-        <img class="logo" src="{% static 'img/logo.jpeg' %}" alt="logo" />
+        <img class="logo" src="{% static 'img/logo.png' %}" alt="logo" />
 
         <div class="box">
             <div class="content-wrap">
