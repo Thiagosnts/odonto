@@ -67,7 +67,7 @@ def upload_file(pic, file):
 
 
 def get_today_date(date_format="%m/%d/%Y"):
-    return datetime.date.today().strftime(date_format)
+    return datetime.now().strftime(date_format)
 
 def get_interval_date(dataAtual, date="25/10/2021 13:58:18"):
 
