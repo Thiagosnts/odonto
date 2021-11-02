@@ -54,9 +54,9 @@
                 {% csrf_token %}
                 <input type="hidden" name="patient_cpf" id="patient_cpf" value="{{ sequence.patient }}">
                 <div class="col-md-12">
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label for="diagnostic_code" class="col-md-5 control-label">Diagnóstico do Paciente </label>
+                            <label for="diagnostic_code" class="col-md-12 control-label">Diagnóstico do Paciente </label>
                             <div class="col-md-7">
                                 <div class="ui-select" style="width: 100%;">
                                     <select id="diagnostic_code" name="diagnostic_code" required>
@@ -71,9 +71,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label for="treatment_code" class="col-md-4 control-label">Procedimentos Clinicos</label>
+                            <label for="treatment_code" class="col-md-12 control-label">Procedimentos Clinicos</label>
                             <div class="col-md-8">
                                 <div class="ui-select" style="width: 100%;">
                                     <select id="treatment_code" name="treatment_code" required>
@@ -86,10 +86,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label for="treatment_quantity" class="col-md-1 control-label">-</label>
-                            <div class="col-md-10">
+                            <div class="col-md-12">
                                 <div class="ui-select" style="width: 100%;">
                                     <select id="treatment_quantity" name="treatment_quantity" required>
                                         <option value="">Quantidade</option>
@@ -107,9 +107,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
+                            <div class="col-md-offset-2 col-md-12">
                                 <button type="submit" class="btn-glow primary">Adicionar</button>
                                 <span> &nbsp; Ou</span>
                                 <input type="reset" value="Limpar" class="btn-glow">
@@ -121,22 +121,21 @@
         </div>
 
         <div class="row profile" style="margin-top: 50px; padding: 0 20px;">
-            <div class="">
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th class="col-md-1">
+                            <th class="col-md-2">
                                 Ação
                             </th>
-                            <th class="col-md-3">
+                            <th class="col-md-2">
                                 <span class="line"></span>
                                 Data
                             </th>
-                            <th class="col-md-3">
+                            <th class="col-md-4">
                                 <span class="line"></span>
                                 Codigo do Tratamento
                             </th>
-                            <th class="col-md-4">
+                            <th class="col-md-8">
                                 <span class="line"></span>
                                 Tratamento
                             </th>
@@ -182,7 +181,7 @@
                         {% endif %}
                     </tbody>
                 </table>
-            </div>
+            
         </div>
 
         <div class="row" style="margin-top: 40px;">
