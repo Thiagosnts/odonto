@@ -346,6 +346,14 @@
         {% endfor %}
     {% endif %}
 </script> -->
+<script>
+const url = window.location.href
+
+$(window).on("load", function(){
+    if(url.indexOf("anamnese")!=-1){
+    document.getElementById("anamnese-questoes").click()}
+});
+</script>
 
 
 {% endblock %}

@@ -40,6 +40,8 @@ urlpatterns = [
     url(r'^patients/create/$', patients_views.create_patient, name='create_patient'),
     url(r'^patients/edit/(?P<cpf>\d+)/$', patients_views.edit_patient, name='edit_patient'),
     url(r'^patients/check/(?P<cpf>\d+)/$', patients_views.check_patient, name='check_patient'),
+    url(r'^patients/check/(?P<cpf>\d+)/anamnese/$', patients_views.check_patient, name='check_anamnese'),
+
     url(r'^patients/check/(?P<cpf>\d+)/diagnostic/create/$', patients_views.create_diagnostic,
         name='create_diagnostic'),
     url(r'^patients/check/(?P<cpf>\d+)/diagnostic/delete/(?P<code>\d+)/$', patients_views.delete_diagnostic,

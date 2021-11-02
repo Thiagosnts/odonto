@@ -253,7 +253,7 @@ def create_question(request, cpf):
             error(request, result)
         else:
             success(request, "Pergunta adicionada com sucesso")
-        return redirect('check_patient', cpf=cpf)
+        return redirect('check_anamnese', cpf=cpf)
 
 
 def delete_question(request,cpf, code):
@@ -262,7 +262,7 @@ def delete_question(request,cpf, code):
         return redirect('login')
     result = Questions.delete_question(code)
     # Sequences.cancel_sequences_from_patient(cpf)
-    response = redirect('check_patient', cpf=cpf)
+    response = redirect('check_anamnese', cpf=cpf)
     if result is not True:
         error(request, result)
         return response
