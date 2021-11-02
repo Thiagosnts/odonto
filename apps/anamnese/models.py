@@ -16,23 +16,6 @@ class Anamnese:
         except errors.OperationFailure:
             return "oops, mongo error"
 
-    # def find_question(self, code, status=1):
-    #     question = self.questions.find_one({'code': int(code), 'status': 1})
-    #     if not question:
-    #         return None
-    #     return question
-
-    # def add_question(self, question_date, status=1):
-    #     count = self.questions.find({}).count()
-    #     code = count + 10
-
-    #     question = {'code': code, 'question': question_date, 'status': status}
-    #     try:
-    #         self.questions.insert_one(question)
-    #     except errors.OperationFailure:
-    #         return "oops, mongo error"
-    #     return True
-
     def delete_anamnese(self, cpf):
         # question = self.find_question(code)
         # if question is None:
