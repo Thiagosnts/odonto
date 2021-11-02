@@ -41,7 +41,10 @@ urlpatterns = [
     url(r'^patients/edit/(?P<cpf>\d+)/$', patients_views.edit_patient, name='edit_patient'),
     url(r'^patients/check/(?P<cpf>\d+)/$', patients_views.check_patient, name='check_patient'),
     url(r'^patients/check/(?P<cpf>\d+)/anamnese/$', patients_views.check_patient, name='check_anamnese'),
-
+    url(r'^patients/check/(?P<cpf>\d+)/question/create/$', patients_views.create_question,
+        name='create_question'),
+    url(r'^patients/check/(?P<cpf>\d+)/question/delete/(?P<code>\d+)/$', patients_views.delete_question,
+        name='delete_question'),
     url(r'^patients/check/(?P<cpf>\d+)/diagnostic/create/$', patients_views.create_diagnostic,
         name='create_diagnostic'),
     url(r'^patients/check/(?P<cpf>\d+)/diagnostic/delete/(?P<code>\d+)/$', patients_views.delete_diagnostic,
@@ -66,12 +69,6 @@ urlpatterns = [
     url(r'^reports_payment/$', reports_views.payment, name='reports_payment'),
     # Anamnese
     url(r'^anamnese/(?P<token>\w+)/$', anamnese_views.anamnese, name='questions'),
-    # url(r'^anamnese/$', treatments_views.index, name='treatments'),
-    url(r'^patients/check/(?P<cpf>\d+)/question/create/$', patients_views.create_question,
-        name='create_question'),
-    # url(r'^anamnese/edit/(?P<code>\w+)/$', treatments_views.edit_treatment, name='edit_treatment'),
-    # url(r'^patients/check/(?P<code>\w+)/$', treatments_views.delete_treatment, name='delete_treatment'),
-    url(r'^patients/check/(?P<cpf>\d+)/question/delete/(?P<code>\d+)/$', patients_views.delete_question,
-        name='delete_question'),
+
 
 ]
