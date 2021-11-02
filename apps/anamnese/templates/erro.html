@@ -4,6 +4,11 @@
 {% load static %}
 
 {% block style %}
+<style>
+    .logo{
+        background-color: white!important;
+        height: 127px!important;
+    }</style>
     <link rel="stylesheet" href="{% static 'css/compiled/signup.css' %}" type="text/css" media="screen" />
 {% endblock %}
 
@@ -32,7 +37,7 @@
         {% endfor %}
     </div>
 
-    <div class="login-wrapper">
+    <!-- <div class="login-wrapper">
         <div class="box">
             <div class="content-wrap">
                 <h6>Link Expirado !!! </span></h6>
@@ -42,6 +47,6 @@
         </div>
 
 
-    </div>
+    </div> -->
 
 {% endblock %}
