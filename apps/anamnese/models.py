@@ -17,9 +17,8 @@ class Anamnese:
             return "oops, mongo error"
 
     def delete_anamnese(self, cpf):
-        # question = self.find_question(code)
-        # if question is None:
-        #     return "Pergunta não encontrado"
+        if self.find_anamnese(cpf) is None:
+            return "Pergunta não encontrado"
         try:
             x = self.anamnese.delete_many({"cpf":cpf})
         except errors.OperationFailure:
@@ -33,5 +32,5 @@ class Anamnese:
         count = anamnese.count()
 
         if count > 0:
-            return anamnese
-        return None
+            return True
+        return False
