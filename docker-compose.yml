@@ -10,12 +10,12 @@ services:
     restart: always
     ports:
       - 8081:8081
-  # web:
-  #   # build: .
-  #   image: lex720/django
-  #   volumes:
-  #     - .:/code
-  #   ports:
-  #     - "8000:8000"
-  #   depends_on:
-  #     - db
+  web:
+    build: .
+    image: odonto/django
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
