@@ -149,7 +149,7 @@ class Patient:
         if patient is None:
             return "Paciente não encontrado"
         try:
-            self.patients.update_one({'cpf': cpf}, {'$set': {'status': 0}})
+            self.patients.update_one({'cpf': cpf,'status': 1}, {'$set': {'status': 0}})
         except errors.OperationFailure:
             return "Oops, Paciente não deletado"
         return True

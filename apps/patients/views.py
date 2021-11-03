@@ -228,7 +228,7 @@ def delete_patient(request, cpf):
         return redirect('login')
     result = Patients.delete_patient(cpf)
     Sequences.cancel_sequences_from_patient(cpf)
-    response = redirect('check_patient')
+    response = redirect('patients')
     if result is not True:
         error(request, result)
         return response
