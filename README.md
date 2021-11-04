@@ -1,6 +1,5 @@
 # Dental Admin
   
-  
 Dental clinic administration system.
 
 # Technical details
