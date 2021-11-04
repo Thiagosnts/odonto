@@ -43,7 +43,7 @@ html{background-image: url(/static/fundo1.jpg);background-size: 100%;}
             <div class="content-wrap">
                 <form class="" action="{% url 'login' %}" method="POST">
                     {% csrf_token %}
-                    <h6>Log in</h6>
+                    <h6>Login</h6>
                     <input name="username" class="form-control" type="text" placeholder="Usuário" required>
                     <input name="password" class="form-control" type="password" placeholder="Senha" required>
                     <br>
