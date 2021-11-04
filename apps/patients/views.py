@@ -171,7 +171,7 @@ def check_patient(request, cpf):
             {'auth_user': auth_user, 'patient': patient, 'diagnostics': diagnostics,'questions':questions, 'anamnese':anamnese})
     
     token = gerar_token(cpf)
-    url = f'http://localhost:8000/anamnese/{token}'
+    url = f'http://localhost/anamnese/{token}'
 
     form = validate_form(request.POST)
     if form is not True:
