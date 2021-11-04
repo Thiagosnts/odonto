@@ -1,5 +1,5 @@
-# Dental Admin
-teste
+# Dental Admin V2
+
 Dental clinic administration system.
 
 # Technical details
