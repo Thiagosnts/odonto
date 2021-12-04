@@ -37,3 +37,5 @@ Dental clinic administration system.
 - pip install -r requirements.txt
 - docker-compose up -d
 - python manage.py runserver
+- python manage.py runsslserver --certificate ./server.crt --key ./server.key 0.0.0.0:8080
+
