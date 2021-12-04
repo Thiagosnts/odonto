@@ -7,7 +7,7 @@ import string
 import base64
 import json
 
-client = pymongo.MongoClient('mongo', 27017)
+client = pymongo.MongoClient('localhost', 27017)
 database_connection = client.dentaladmin
 database_errors = pymongo.errors
 
