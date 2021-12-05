@@ -46,7 +46,7 @@
                     <input type="text" class="form-control" name="name" id="name" placeholder="Nome" value="{{ name }}" required>
                     <input type="text" class="form-control" name="phone" id="phone" pattern="[0-9]+" placeholder="Telefone" value="{{ phone }}" required>
                     <input type="text" class="form-control" name="email" id="email" placeholder="Email" value="{{ email }}" required>
-                    <input type="text" class="form-control" name="username" id="username" placeholder="Usuário" value="{{ username }}" required>
+                    <input type="text" class="form-control" name="username" id="username" pattern="[A-Za-z0-9]+" title="Usuário deve ter somente letras e números." placeholder="Usuário" value="{{ username }}" required>
                     <input type="password" class="form-control" name="password" id="password" placeholder="Senha" required>
                     <input type="password" class="form-control" name="password2" id="password2" placeholder="Repetir Senha" required>
                     <div class="action">
