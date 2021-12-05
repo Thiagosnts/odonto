@@ -60,16 +60,16 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="visit_reason" class="col-md-2 control-label">Motivo da Visita</label>
+                        <!-- <label for="visit_reason" class="col-md-2 control-label">Motivo da Visita</label> -->
                         <div class="col-md-8">
-                          <input type="text" class="form-control" name="visit_reason" id="visit_reason" placeholder="Motivo da Visita" value="{{ patient.visit_reason }}" required>
+                          <input hidden type="text" class="form-control" name="visit_reason" id="visit_reason" placeholder="Motivo da Visita" value="{{ patient.visit_reason }}" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-8">
-                            <button type="submit" class="btn-glow primary">Atualizar</button>
-                            <a href="{% url 'patients' %}" class="btn-flat success pull-right">Voltar</a>
+                            <a href="{% url 'patients' %}" class="btn-flat success">Voltar</a>
+                            <button type="submit" class="btn-glow primary pull-right">Atualizar</button>
                         </div>
                     </div>
                 </form>
