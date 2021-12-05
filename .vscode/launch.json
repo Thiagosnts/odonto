@@ -9,9 +9,10 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/manage.py",
-            "args": [
-                "runserver",
-            ],
+            "args": ["runsslserver","--certificate","./server.crt","--key","./server.key", "0.0.0.0:8080"],
+            // "args": [
+            //     "runserver",
+            // ],
             "django": true
         }
     ]

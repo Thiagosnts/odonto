@@ -48,8 +48,7 @@ INSTALLED_APPS = [
     'apps.reports',
     'apps.anamnese',
     'apps.questions',
-
-
+    "sslserver",
 ]
 
 MIDDLEWARE = [
