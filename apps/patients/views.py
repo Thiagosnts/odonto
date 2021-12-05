@@ -138,7 +138,8 @@ def edit_patient(request, cpf):
         email = request.POST['email']
         phone = request.POST['phone']
         address = request.POST['address']
-        visit_reason = request.POST['visit_reason']
+        # visit_reason = request.POST['visit_reason']
+        visit_reason = ''
         form = validate_form(request.POST)
         if form is not True:
             error(request, "Existe um problema com as suas informações, Favor Verificar")
