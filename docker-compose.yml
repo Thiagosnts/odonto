@@ -1,15 +1,15 @@
 version: '2'
 services:
-  # mongo:
-  #   image: mongo
-  #   ports:
-  #     - 27017:27017
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
 
-  # mongo-express:
-  #   image: mongo-express
-  #   restart: always
-  #   ports:
-  #     - 8081:8081
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
   web:
     build: .
     image: odonto/django
