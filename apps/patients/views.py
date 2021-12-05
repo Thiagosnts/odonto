@@ -172,7 +172,8 @@ def check_patient(request, cpf):
             {'auth_user': auth_user, 'patient': patient, 'diagnostics': diagnostics,'questions':questions, 'anamnese':anamnese})
     
     token = gerar_token(cpf)
-    url = f'/anamnese/{token}'
+    path_info = request.META.get('HTTP_ORIGIN')       
+    url = f'{path_info}/anamnese/{token}'
 
     form = validate_form(request.POST)
     if form is not True:
