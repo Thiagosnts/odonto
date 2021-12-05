@@ -48,9 +48,9 @@ def anamnese(request,token=None):
 
     questions = Questions.list_questions()
 
-    if questions is None:
-        error(request, "Esse paciente não existe")
-        return redirect('patients')
+    # if questions is None:
+    #     error(request, "Esse paciente não existe")
+    #     return redirect('patients')
 
     if request.method == 'GET':
         return render(request, 'anamnese.html', {'questions':questions,'token':token})
