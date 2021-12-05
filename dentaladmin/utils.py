@@ -6,8 +6,15 @@ import random
 import string
 import base64
 import json
+import os
 
-client = pymongo.MongoClient('mongo', 27017)
+response = os.system("curl " + "localhost:27017")
+
+if response:
+    client = pymongo.MongoClient('mongo', 27017)
+else:
+    client = pymongo.MongoClient('localhost', 27017)
+
 database_connection = client.dentaladmin
 database_errors = pymongo.errors
 
